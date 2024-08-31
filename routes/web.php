@@ -1,5 +1,5 @@
 <?php
-use \App\Http\Controllers\JopPostController;
+use \App\Http\Controllers\JobPostController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ApplicationController;
 
@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('users', UserController::class);
-Route::resource('job_posts', JopPostController::class);
+Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
 
 

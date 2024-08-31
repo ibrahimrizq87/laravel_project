@@ -48,7 +48,8 @@ class User extends Authenticatable
     {
 
         // can be updated later to allow more than one resume to be listed in the application 
-        return $this->hasOne(Resume::class);
+        
+        return $this->hasMany(Resume::class);
     }
     public function applications()
     {
