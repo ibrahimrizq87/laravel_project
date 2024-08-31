@@ -44,4 +44,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function resumes()
+    {
+
+        // can be updated later to allow more than one resume to be listed in the application 
+        return $this->hasOne(Resume::class);
+    }
+    public function applications()
+    {
+
+        return $this->hasMany(Application::class);
+    }
+
+
+    public function jopPosts()
+    {
+
+        return $this->hasMany(JopPost::class);
+    }
+
 }
