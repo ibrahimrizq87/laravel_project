@@ -1,11 +1,6 @@
-<form action="route" method ="post">
+@extends('layouts.app')
 
-</form>
+@section('content')
+<h1> hi there</h1>
+@endsection
 
-
-<form action="route" method ="post">
-@_method('put')
-
-
-
-</form>

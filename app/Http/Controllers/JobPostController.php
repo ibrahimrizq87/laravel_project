@@ -21,6 +21,13 @@ class JobPostController extends Controller
     {
         //
     }
+    public function create()
+    {
+        // dd('here');
+        return view('job_post.add_job_post');
+        
+    }
+
 
     /**
      * Display the specified resource.
