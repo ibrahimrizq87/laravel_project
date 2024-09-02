@@ -63,7 +63,7 @@ class User extends Authenticatable
     public function jopPosts()
     {
 
-        return $this->hasMany(JopPost::class);
+        return $this->hasMany(JobPost::class);
     }
 
 }
