@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class JobPost extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'job_title',
+        'description',
+        'responsibilities',
+        'required_skills',
+        'qualifications',
+        'salary_range',
+        'benefits_offered',
+        'location',
+        'work_type',
+        'work_from',
+        'application_deadline',
+        'date',
+         'user_id'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
