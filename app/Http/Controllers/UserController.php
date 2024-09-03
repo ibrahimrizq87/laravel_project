@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;  // Import the User model
+use App\Models\User;  
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,10 +35,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user) 
-    {
-        // dd($user);
-    }
+
+    public function show(User $user)
+{
+    $applications = $user->applications()->with('jobPost')->paginate(5);
+        
+    return view('profile', compact('user', 'applications'));
+    
+}
 
     /**
      * Show the form for editing the specified resource.

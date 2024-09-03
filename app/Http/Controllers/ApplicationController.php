@@ -12,7 +12,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $applications = Application::with('jobPost')->paginate(5);
+
+        return view('applications.index', compact('applications'));
     }
 
     /**

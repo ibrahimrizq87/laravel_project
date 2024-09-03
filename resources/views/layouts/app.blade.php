@@ -77,7 +77,9 @@
                 </a>
 
                 <div class="dropdown-menu text-small " aria-labelledby="dropdownUser1">
+
                     <li><a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">View Profile</a></li>
+
                     <li><hr class="dropdown-divider"></li>
 
                     <li>  <a class="dropdown-item" href="{{ route('logout') }}"
