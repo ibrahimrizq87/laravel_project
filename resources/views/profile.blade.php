@@ -58,7 +58,7 @@
                 <tr>
                  
                     <td>
-                        @if($application->jobPost)
+                        @if(!$applications->isEmpty())
 
                     </td>
 
