@@ -108,13 +108,18 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" class="form-control" id="date" name="date" value="{{ old('date', $job_post->date) }}">
-                @error('date')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
+         
+        <label for="inputGroupFile02" class="form-label">Profile Image</label>
+        <div class="input-group mb-3">
+            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">User Image</label>
+            @error('image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+        </div>
+        
 
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         </div>

@@ -33,7 +33,8 @@ class JobPostValidate extends FormRequest
             'work_type' => 'required|in:full-time,part-time,freelancing-job',
             'work_from' => 'required|in:remote,on-site,hybrid',
             'application_deadline' => 'required|date',
-            'date' => 'required|date',
+            "image" => "nullable|image|mimes:jpeg,png,jpg|max:2048" 
+
         ];
     }
         public function messages(): array
@@ -63,9 +64,10 @@ class JobPostValidate extends FormRequest
             'work_from.in' => 'The selected work from is invalid.',
             'application_deadline.required' => 'The application deadline is required.',
             'application_deadline.date' => 'The application deadline must be a valid date.',
-            'date.required' => 'The date is required.',
-            'date.date' => 'The date must be a valid date.',
-           
+            "image.image" => "The file must be an image.",
+            "image.mimes" => "The image must be a file of type: jpeg, png, jpg.",
+            "image.max" => "The image size must not exceed 2MB.",
+   
         ];
     }
 }
