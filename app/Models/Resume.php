@@ -9,8 +9,8 @@ class Resume extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'resume'];
 
-    
     public function user()
     {
         return $this->belongsTo(User::class);

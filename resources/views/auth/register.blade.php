@@ -44,23 +44,37 @@
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
         </div>
 
-        <label for="role" class="form-label">User Type</label>
-        <div class="input-group mb-3">
-            <select id="role" name='role' class="form-select @error('role') is-invalid @enderror">
-                <option selected>Choose...</option>
-                <option value="employer">employer</option>
-                <option value="candidate">candidate</option>
-            </select>
-            <label class="input-group-text" for="role">Options</label>
-            @error('role')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror  
-        </div>
 
-        <label for="inputGroupFile02" class="form-label">Profile Image</label>
+        <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror" required>
+            <option value="">Select Gender</option>
+            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+        </select>
+        @error('gender')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    <br>
+    
+    <div class="form-group">
+        <label for="birthdate">Birthdate</label>
+        <input type="date" id="birthdate" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror" value="{{ old('birthdate') }}" required>
+        @error('birthdate')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+
+<br>
+    <label for="inputGroupFile02" class="form-label">Profile Image</label>
+
         <div class="input-group mb-3">
+
             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">User Image</label>
             @error('image')
@@ -70,8 +84,120 @@
             @enderror  
         </div>
 
+        <label for="role" class="form-label">User Type</label>
+        <div class="input-group mb-3">
+            <select id="role" name='role' class="form-select @error('role') is-invalid @enderror">
+                <option value="" disabled {{ old('role') ? '' : 'selected' }}>Choose...</option>
+                <option value="employer" {{ old('role') === 'employer' ? 'selected' : '' }}>Employer</option>
+                <option value="candidate" {{ old('role') === 'candidate' ? 'selected' : '' }}>Candidate</option>
+            </select>
+            <label class="input-group-text" for="role">Options</label>
+            @error('role')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+        </div>
+
+        <div id="candidate-fields" style="display: {{ old('role') === 'candidate' ? 'block' : 'none' }};">
+            <div class="mb-3">
+                <label for="skills" class="form-label">Skills</label>
+                <textarea id="skills" name="skills" class="form-control @error('skills') is-invalid @enderror" placeholder="Enter your skills">{{ old('skills') }}</textarea>
+                @error('skills')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+
+            <div class="mb-3">
+                <label for="employed" class="form-label">Are you currently employed?</label>
+                <select id="employed" name="employed" class="form-select @error('employed') is-invalid @enderror">
+                    <option value="employed" {{ old('employed') === 'employed' ? 'selected' : '' }}>Employed</option>
+                    <option value="unemployed" {{ old('employed') === 'unemployed' ? 'selected' : '' }}>Unemployed</option>
+                    <option value="student" {{ old('employed') === 'student' ? 'selected' : '' }}>Student</option>
+                </select>
+                @error('employed')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+
+            <div id="company-field" class="mb-3" style="display: {{ old('employed') === 'employed' ? 'block' : 'none' }};">
+                <label for="company" class="form-label">Company</label>
+                <input type="text" id="company" name="company" class="form-control @error('company') is-invalid @enderror" placeholder="Enter company name" value="{{ old('company') }}">
+                @error('company')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+
+            <div id="job-description-field" class="mb-3" style="display: {{ old('employed') === 'employed' ? 'block' : 'none' }};">
+                <label for="job-description" class="form-label">Job Description</label>
+                <textarea id="job-description" name="job_description" class="form-control @error('job_description') is-invalid @enderror" placeholder="Describe your job">{{ old('job_description') }}</textarea>
+                @error('job_description')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+          
+
+            <div class="mb-3">
+                <label for="cv" class="form-label">Upload CV</label>
+                <input type="file" id="cv" name="cv" class="form-control @error('cv') is-invalid @enderror">
+                @error('cv')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Enter your phone number" value="{{ old('phone') }}">
+                @error('phone')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror  
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-secondary">Register</button>
     </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function toggleCandidateFields() {
+            if ($('#role').val() === 'candidate') {
+                $('#candidate-fields').slideDown();
+            } else {
+                $('#candidate-fields').slideUp();
+                $('#company-field').slideUp();
+                $('#job-description-field').slideUp(); 
+            }
+        }
+
+        function toggleCompanyFields() {
+            if ($('#employed').val() === 'employed') {
+                $('#company-field').slideDown();
+                $('#job-description-field').slideDown();
+            } else {
+                $('#company-field').slideUp();
+                $('#job-description-field').slideUp();
+            }
+        }
+
+        toggleCandidateFields();
+        toggleCompanyFields();
+
+        $('#role').on('change', toggleCandidateFields);
+        $('#employed').on('change', toggleCompanyFields);
+    });
+</script>
 @endsection

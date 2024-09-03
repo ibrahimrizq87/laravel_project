@@ -21,8 +21,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'image'
+        'image',
+        'gender',
+        'birthdate'
     ];
+        
 
     /**
      * The attributes that should be hidden for serialization.
@@ -59,4 +62,8 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
+    public function candidate()
+{
+    return $this->hasOne(Candidate::class);
+}
 }
