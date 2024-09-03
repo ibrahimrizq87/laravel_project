@@ -27,7 +27,7 @@ class JobPostValidate extends FormRequest
             'responsibilities' => 'required|string',
             'required_skills' => 'required|string',
             'qualifications' => 'required|string',
-            'salary_range' => 'required|string',
+            'salary_range' => 'required|string', //            s_from  s_to  
             'benefits_offered' => 'nullable|string',
             'location' => 'required|string|max:255',
             'work_type' => 'required|in:full-time,part-time,freelancing-job',

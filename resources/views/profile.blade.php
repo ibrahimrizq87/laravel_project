@@ -9,12 +9,12 @@
         <div class=" fs-2 fw-bolder text-danger text-end py-5">Welcome {{strtoupper($user->name)}}!</div>
         <div class="col-12 col-md-4">
             <div class="card bg-white text-center d-flex justify-content-center align-items-center ">
-                <img src="../../public/images/user.png" class="rounded-circle py-3 " style="height:100px; width:100px" alt=""> <!--add pic-->
+                
+                <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-3 " style="height:100px; width:100px" alt=""> <!--add pic-->
                 <div class="card-body text-start">
                     <h5 class="card-title py-3">Name: {{ ucwords($user->name) }}</h5>
                     <h5 class="card-title py-3">E-mail: {{$user->email}}</h5>
                     <h5 class="card-title py-3">Role: {{$user->role}}</h5>
-                    <h5 class="card-title py-3">Phone Number: {{ $user->applications->first()->phone_number }}</h5>
 
                     <button class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </button>
 
@@ -23,6 +23,8 @@
             </div>
         </div>
         <!--Applications-->
+
+        @if($user->role == 'candidate')
         <div class="col-12 col-md-8">
             <div class="card bg-white">
                 <div class="card-header bg-white ">
@@ -71,7 +73,7 @@
             </div>
         </div>
     </div>
-
+    @endif
 
 </div>
 </div>
