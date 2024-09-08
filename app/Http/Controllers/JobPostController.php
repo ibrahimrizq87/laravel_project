@@ -35,9 +35,9 @@ class JobPostController extends Controller
          return redirect()->route('job_posts.index')->with('success', 'Job post created successfully.');
      }
      
-    public function show(string $id)
+    public function show(JobPost $post)
     {
-        //
+        
     }
 
     /**
