@@ -38,8 +38,8 @@ class UserController extends Controller
 
     public function show(User $user)
 {
+   
     $applications = $user->applications()->with('jobPost')->paginate(5);
-        
     return view('profile', compact('user', 'applications'));
     
 }
