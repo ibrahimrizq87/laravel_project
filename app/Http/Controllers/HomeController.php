@@ -36,9 +36,11 @@ class HomeController extends Controller
         }
         else {
             $jobPosts = JobPost::where('status', 'approved')->get();
+            // $jobPosts = JobPost::all();
+
         }
 
-        // $jobPosts = JobPost::all();
+        $jobPosts = JobPost::all();
             // $jobPosts = JobPost::where('user_id', $user->id)->get();
         
         // dd($jobPosts);

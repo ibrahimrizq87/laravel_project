@@ -101,15 +101,24 @@ $required_skills =explode(" ", $jobPost->required_skills);
                 </p>
 
                 <p class="card-subtitle mb-2 text-muted">
-                    
-                    Status<span class="job-type m-2">{{$jobPost->status}}</span>
+                    @if($user->role== "employer")
+                        Status<span class="job-type m-2">{{$jobPost->status}}</span>
+                    @endif
                     role of user<span class="job-type m-2">{{$jobPost->user->role}}</span>                    
                 </p>
 
                 
                 
                 <a href="#" class="card-link">View Details</a>
-                <a href="#" class="card-link">Apply Now</a>
+                
+                @if($user->role== "candidate")
+                    <a href="#" class="card-link">Apply Now</a>
+                @endif
+                
+                @if($user->role== "admin")
+                    <a href="#" class="card-link">approve it</a>
+                @endif
+
             </div>
         </div>
     </div>
