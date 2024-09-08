@@ -28,7 +28,7 @@
 <body>
     <div class="container mt-5">
         <h2>Job Post Form</h2>
-        <form action="{{ route('job_posts.store') }}" method="POST">
+        <form action="{{ route('job_posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-section">
@@ -72,25 +72,20 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
-                <div class="form-group">
-                    <label for="salary_range">Salary Range</label>
-                    <input type="text" class="form-control" id="salary_range" name="salary_range">
-                    @error('salary_range')
+<div>
+                <label for="salary_from">Salary From</label>
+<input type="text" class="form-control" id="salary_from" name="s_from">
+@error('s_from')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>Additional Information</h3>
-                <div class="form-group">
-                    <label for="benefits_offered">Benefits Offered</label>
-                    <textarea class="form-control" id="benefits_offered" name="benefits_offered" rows="3"></textarea>
-                    @error('benefits_offered')
+    </div>
+    <div>
+<label for="salary_to">Salary To</label>
+<input type="text" class="form-control" id="salary_to" name="s_to">
+@error('s_to')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+    </div>
 
                 <div class="form-group">
                     <label for="location">Location</label>

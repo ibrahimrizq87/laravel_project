@@ -15,14 +15,16 @@ class JobPost extends Model
         'responsibilities',
         'required_skills',
         'qualifications',
-        'salary_range',
+        's_from',
+        's_to',
         'benefits_offered',
         'location',
         'work_type',
         'work_from',
         'application_deadline',
         'date',
-         'user_id'
+         'user_id',
+          'image'
     ];
     public function user()
     {

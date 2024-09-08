@@ -142,8 +142,10 @@ class RegisterController extends Controller
               'resume' =>   $cv_path ,
             ]);
         }
+        
         if ($user->role =='candidate'){
             Candidate::create([
+                'user_id' =>   $user->id,
                 'skills'=> $data['skills']
                 , 'employed'=>$data['employed']
                 ,'company'=>$data['company']

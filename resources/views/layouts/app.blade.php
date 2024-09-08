@@ -100,11 +100,12 @@
         </div>
     </header>
   
-    @if (Auth::check() && Auth::user()->role == 'candidate')
+    @if (Auth::check() && Auth::user()->role == 'candidate' && Route::currentRouteName() == 'home')
     <header class="p-3 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center">
+                
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center">
                     <input type="search" class="form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
                     <div class="input-group">
                         <select class="form-select" id="inputGroupSelect02">
@@ -115,6 +116,8 @@
                         <label class="input-group-text" for="inputGroupSelect02">Criteria</label>
                     </div>
                 </form>
+
+
             </div>
         </div>
     </header>
