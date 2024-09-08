@@ -12,7 +12,9 @@
         public function up(): void
         {
             Schema::table('candidates', function (Blueprint $table) {
-                // $table->unsignedBigInteger('user_id');
+                $table->unsignedBigInteger('user_id');
+
+
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             });
         }
@@ -24,7 +26,8 @@
         {
             Schema::table('candidates', function (Blueprint $table) {
                 $table->dropForeign(['user_id']); 
-                // $table->dropColumn('user_id');
+                $table->dropColumn('user_id');
+
             });
         }
     };

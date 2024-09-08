@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'role' => fake()->randomElement(['candidate', 'employer', 'admin']), 
             'password' => Hash::make('12345678'),
             'remember_token' => Str::random(10),
+            'birthdate' => $this->faker->date(),
         ];
     }
 
