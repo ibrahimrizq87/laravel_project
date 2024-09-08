@@ -2,6 +2,7 @@
 use \App\Http\Controllers\JobPostController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ApplicationController;
+use \App\Http\Controllers\PDFResumeController;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/resume/{resume}', [PDFResumeController::class, 'viewResumePDF'])->name('resume.view');
+Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadResumePDF'])->name('resume.download');
+Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
+
+
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
