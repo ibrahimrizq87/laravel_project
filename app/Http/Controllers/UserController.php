@@ -41,7 +41,6 @@ class UserController extends Controller
 
     public function show(User $user)
 {
-   
     $applications = $user->applications()->with('jobPost')->paginate(5);
     return view('profile', compact('user', 'applications'));
     
@@ -73,7 +72,7 @@ class UserController extends Controller
 
     
         if ($request->filled('password')) {
-            $user->password = Hash::make($validatedData['password']);
+            //$user->password = Hash::make($validatedData['password']);
         }
 
         if ($request->hasFile('image')) {

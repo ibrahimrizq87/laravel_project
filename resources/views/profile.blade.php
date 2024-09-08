@@ -35,7 +35,17 @@
                     <h5 class="card-title py-3">User Type: {{$user->role}}</h5>
                     <h5 class="card-title py-3">Gender: {{$user->gender}}</h>
                     <h5 class="card-title py-3">Birthdate: {{$user->birthdate}}</h5>
-                    
+                    <h5 class="card-title py-3">Phone: {{$user->candidate->phone}}</h5>
+                    <h5 class="card-title py-3">Skills: {{$user->candidate->skills}}</h5>
+                    @if ($user->candidate->employed == 'employed')
+                    <h5 class="card-title py-3">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
+                    <h5 class="card-title py-3">Company: {{ucwords($user->candidate->company)}}</h5>
+                    <h5 class="card-title py-3">Job Description: {{ucwords($user->candidate->job_description)}}</h5>
+
+                    @else
+                    <h5 class="card-title py-3">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
+
+                    @endif
 
                     <button class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </button>
 
