@@ -1,64 +1,85 @@
+
+
+
 @extends('layouts.app')
-
 @section('content')
-    <div class="container mt-5">
-        <h2>Job Posts</h2>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if ($jobPosts->isEmpty())
-            <p>No job posts available.</p>
-        @else
-            <div class="row">
-                @foreach ($jobPosts as $jobPost)
-                    <div class="col-md-4 mb-4">
-                        <div class="card job-card">
-                            <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="Job Image">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $jobPost->job_title }}</h5>
-                                <p class="card-text">
-                                    <strong>Description:</strong> {{ Str::limit($jobPost->description, 100) }}<br>
-                                    <strong>Location:</strong> {{ $jobPost->location }}<br>
-                                    <strong>Salary Range:</strong> {{ $jobPost->salary_range }}
-                                </p>
-                                <div class="d-flex justify-content-between">
-                                    <a href="{{ route('job_posts.edit', $jobPost->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('job_posts.destroy', $jobPost->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card-footer text-muted text-center">
-                                <small>Posted on {{ $jobPost->created_at->format('d M, Y') }}</small>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-        <a href="{{ route('job_posts.create') }}" class="btn btn-success mt-4">Create New Job Post</a>
-    </div>
-@endsection
-
-@section('styles')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <!-- Include Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .job-card {
-            transition: transform 0.3s ease;
+        .card-custom {
+            margin-bottom: 20px;
         }
-        .job-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .badge-custom {
+            font-size: 0.8rem;
         }
         .card-img-top {
             height: 200px;
             object-fit: cover;
         }
     </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Posts</h1>
+    <div class="row">
+        @foreach($posts as $post)
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <img src="{{ $post->image ? asset('storage/' . $post->image) : 'https://via.placeholder.com/500x300' }}" class="card-img-top" alt="Job Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $post->title }}</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> {{ Str::limit($post->description, 100) }}<br>
+                        <strong>Location:</strong> {{ $post->location }}<br>
+                        <strong>Salary from:</strong> {{ $post->s_from }}<br>
+                        <strong>Salary to:</strong> {{ $post->s_to }}
+                    </p>
+                    <span class="badge badge-custom
+                        @if($post->status === 'approved')
+                            badge-success
+                        @elseif($post->status === 'cancel')
+                            badge-danger
+                        @else
+                            badge-warning
+                        @endif
+                    ">
+                        @if($post->status === 'approved')
+                            Accepted
+                        @elseif($post->status === 'cancel')
+                            Rejected
+                        @else
+                            Pending
+                        @endif
+                    </span>
+                    <div class="mt-3">
+                        <a href="{{ route('job_posts.edit', $post->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('job_posts.destroy', $post->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
 @endsection
+    
