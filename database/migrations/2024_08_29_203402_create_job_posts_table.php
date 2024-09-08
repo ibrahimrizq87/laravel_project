@@ -19,11 +19,7 @@ return new class extends Migration
             $table->text('responsibilities');
             $table->text('required_skills');
             $table->text('qualifications');
-        
-$table->bigInteger('s_from');
-$table->bigInteger('s_to');
-
-
+            $table->string('salary_range');
             $table->text('benefits_offered')->nullable();
             $table->string('location');
 
@@ -32,7 +28,7 @@ $table->bigInteger('s_to');
             $table->enum('work_from', ['remote', 'on-site', 'hybrid']);
 
             $table->date('application_deadline');
-         
+            $table->date('date');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
