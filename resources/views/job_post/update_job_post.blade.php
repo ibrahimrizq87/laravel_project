@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <h2 class="mb-4">Edit Job Post</h2>
-    <form action="{{ route('job_posts.update', $job_post->id) }}" method="POST">
+    <form action="{{ route('job_posts.update', $job_post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -50,9 +50,17 @@
             </div>
 
             <div class="form-group">
-                <label for="salary_range">Salary Range</label>
-                <input type="text" class="form-control" id="salary_range" name="salary_range" value="{{ old('salary_range', $job_post->salary_range) }}">
-                @error('salary_range')
+                <label for="salary_from">Salary From</label>
+                <input type="text" class="form-control" id="salary_from" name="s_from" value="{{ old('s_from', $job_post->s_from) }}">
+                @error('s_from')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="salary_to">Salary To</label>
+                <input type="text" class="form-control" id="salary_to" name="s_to" value="{{ old('s_to', $job_post->s_to) }}">
+                @error('s_to')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
             </div>
@@ -108,18 +116,17 @@
                 @enderror
             </div>
 
-         
-        <label for="inputGroupFile02" class="form-label">Profile Image</label>
-        <div class="input-group mb-3">
-            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="inputGroupFile02">
-            <label class="input-group-text" for="inputGroupFile02">User Image</label>
+            <div class="form-group">
+            <label for="image" class="form-label">Profile Image</label>
+            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="image">
             @error('image')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror  
         </div>
-        
+
+            </div>
 
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         </div>
