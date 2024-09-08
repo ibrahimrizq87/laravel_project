@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\JobPostValidate;
@@ -32,7 +34,7 @@ public function index() {
     public function store(JobPostValidate $request)
     {
         $validatedData = $request->validated();
-        $validatedData['user_id'] = auth()->id();
+        $validatedData['user_id'] = Auth::id();
         $my_path = '';
 
         if ($request->hasFile('image')) {
@@ -55,7 +57,7 @@ public function index() {
     public function update(UpdateJobPostValidate $request, $id)
     {
         $validatedData = $request->validated();
-        $validatedData['user_id'] = auth()->id();
+        $validatedData['user_id'] = Auth::id();
         
         $jobPost = JobPost::findOrFail($id);
 
