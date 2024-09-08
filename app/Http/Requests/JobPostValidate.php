@@ -27,7 +27,8 @@ class JobPostValidate extends FormRequest
             'responsibilities' => 'required|string',
             'required_skills' => 'required|string',
             'qualifications' => 'required|string',
-            'salary_range' => 'required|string', //            s_from  s_to  
+            's_from' => 'required|numeric',
+            's_to' => 'required|numeric', //            s_from  s_to  
             'benefits_offered' => 'nullable|string',
             'location' => 'required|string|max:255',
             'work_type' => 'required|in:full-time,part-time,freelancing-job',
@@ -51,8 +52,10 @@ class JobPostValidate extends FormRequest
             'required_skills.string' => 'The required skills must be a string.',
             'qualifications.required' => 'The qualifications are required.',
             'qualifications.string' => 'The qualifications must be a string.',
-            'salary_range.required' => 'The salary range is required.',
-            'salary_range.string' => 'The salary range must be a string.',
+            's_from.required' => 'The salary from is required.',
+            's_to.required' => 'The salary to is required.',
+            's_from.numeric' => 'The salary  must be a number.',
+            's_to.numeric' => 'The salary  must be a number.',
             'benefits_offered.nullable' => 'The benefits offered field is optional.',
             'benefits_offered.string' => 'The benefits offered must be a string.',
             'location.required' => 'The location is required.',

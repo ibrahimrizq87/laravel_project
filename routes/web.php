@@ -25,6 +25,15 @@ Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
 
 
+use App\Http\Controllers\AdminController;
+Route::get('/admin/posts', [AdminController::class, 'adminPosts'])->name('admin.posts');
+
+Route::patch('/job_posts/{id}/approve', [AdminController::class, 'approve'])->name('job_posts.approve');
+Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name('job_posts.cancel');
+
+
+
+
 
 // / ............................................................................................................................................... 
 // GET|HEAD        api/user ........................................................................................................................................ 
