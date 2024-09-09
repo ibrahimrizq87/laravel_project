@@ -1,114 +1,87 @@
-{{--  <!-- resources/views/application/add_application.blade.php -->
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h2>Add Application</h2>
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
+    <h2>Create New Application</h2>
     <form action="{{ route('applications.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-            <label for="date">Date:</label>
-            <input type="date" name="date" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="user_id">User ID:</label>
-            <input type="number" name="user_id" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="job_id">Job ID:</label>
-            <input type="number" name="job_id" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" name="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="phone_number">Phone Number:</label>
-            <input type="text" name="phone_number" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" name="location" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="resume">Resume:</label>
-            <input type="file" name="resume" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="additional_information">Additional Information:</label>
-            <textarea name="additional_information" class="form-control"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-@endsection  --}}
 
+        <input type="hidden" name="job_id" value="{{ $job_id }}">
+        @error('job_id')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
 
-
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <h2 class="mt-4 mb-4">Add Application</h2>
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}">
+            @error('location')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
-    @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ Auth::user()->email }}">
+            @error('email')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" name="phone_number" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number', Auth::user()->candidate->phone) }}">
+            @error('phone_number')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="resume">Upload Resume</label>
+            <input type="file" name="resume" id="resume" class="form-control @error('resume') is-invalid @enderror">
+            @error('resume')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="resume_option">Choose Existing Resume</label>
+            <select name="resume_option" id="resume_option" class="form-control @error('resume_option') is-invalid @enderror">
+                <option value="">Select a resume</option>
+                @foreach ($resumes as $resume)
+                <option value="{{ $resume->id }}" {{ old('resume_option') == $resume->id ? 'selected' : '' }}>
+                    Resume {{ $loop->index + 1 }}
+                </option>
                 @endforeach
-            </ul>
+            </select>
+            @error('resume_option')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
-    @endif
 
-    <form action="{{ route('applications.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
         <div class="form-group">
-            <label for="date">Date:</label>
-            <input type="date" name="date" class="form-control" value="{{ old('date') }}" required>
+            <label for="additional_information">Additional Information</label>
+            <textarea name="additional_information" id="additional_information" class="form-control @error('additional_information') is-invalid @enderror">{{ old('additional_information') }}</textarea>
+            @error('additional_information')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
-        <div class="form-group">
-            <label for="user_id">User ID:</label>
-            <input type="number" name="user_id" class="form-control" value="{{ old('user_id') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="job_id">Job ID:</label>
-            <input type="number" name="job_id" class="form-control" value="{{ old('job_id') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="phone_number">Phone Number:</label>
-            <input type="text" name="phone_number" class="form-control" value="{{ old('phone_number') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" name="location" class="form-control" value="{{ old('location') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="resume">Resume (Optional):</label>
-            <input type="file" name="resume" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="additional_information">Additional Information:</label>
-            <textarea name="additional_information" class="form-control">{{ old('additional_information') }}</textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button type="submit" class="btn btn-primary">Submit Application</button>
     </form>
 </div>
 @endsection
+
