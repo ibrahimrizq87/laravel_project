@@ -108,7 +108,7 @@ $required_skills =explode(" ", $jobPost->required_skills);
 
                 
                 
-                <a href="#" class="card-link">View Details</a>
+                <a href="{{route('job_posts.show',$jobPost->id)}}" class="card-link">View Details</a>
                 <a href="#" class="card-link">Apply Now</a>
             </div>
         </div>

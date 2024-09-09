@@ -7,8 +7,12 @@
     <title>BetterCareer</title>
     <link rel="icon" href="{{ asset('images/job.png') }}" type="image/x-icon">
     <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">  -->
+
 </head>
 <body>
 <div id="app">
