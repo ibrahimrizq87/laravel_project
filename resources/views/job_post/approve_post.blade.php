@@ -108,8 +108,19 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
 
                 @if($jobPost->status == "pended")
 
-                    <a href="#" class="card-link">approve</a>
-                    <a href="#" class="card-link">reject</a>
+                    <form action="{{ route('job_posts.approve', $jobPost->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form action="{{ route('job_posts.cancel', $jobPost->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+
+                    
                     
                 @endif
                

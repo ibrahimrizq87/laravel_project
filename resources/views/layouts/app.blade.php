@@ -140,6 +140,21 @@
     <main class="py-4">
         @yield('content')
     </main>
+    <footer class="py-4 text-center text-white" style="background-color:#1A2130">
+        <div class="container d-flex justify-content-around">
+            <div>
+                <p> &copy; ITI Laravel team  </p>
+            </div>   
+            <div>
+                <pre class="m-0 p-0">
+                    Ibrahim Rizq - Anas Abdel-Aziz
+                    Asmaa Hamada - Hadeer Abdel-Aziz
+                    Lamia Alaa
+                </pre> 
+            </div>
+
+        </div>
+    </footer>
 </div>
 </body>
 </html>
