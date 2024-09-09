@@ -15,7 +15,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/{key}/{criteria}', [App\Http\Controllers\HomeController::class, 'search'])->name('home.search');
+Route::get('/home/search', [App\Http\Controllers\HomeController::class, 'search'])->name('home.search');
 
 Route::get('/resume/{resume}', [PDFResumeController::class, 'viewResumePDF'])->name('resume.view');
 Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadResumePDF'])->name('resume.download');
