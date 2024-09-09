@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;  
-use App\Models\Resume;  
-use App\Models\Candidate;  
+use App\Models\User;
+use App\Models\Resume;
+use App\Models\Candidate;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
@@ -42,14 +43,15 @@ class UserController extends Controller
     public function show(User $user)
 {
     $applications = $user->applications()->with('jobPost')->paginate(5);
+
     return view('profile', compact('user', 'applications'));
-    
+
 }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user) 
+    public function edit(User $user)
     {
         return view('edit_user', ['user'=>$user]);
 
@@ -58,7 +60,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user) 
+    public function update(UpdateUserRequest $request, User $user)
     {
 
         try {
@@ -70,14 +72,14 @@ class UserController extends Controller
         $imagePath = $user->image;
         $user->role = $validatedData['role'] ?? 'admin' ;
 
-    
+
         if ($request->filled('password')) {
             //$user->password = Hash::make($validatedData['password']);
         }
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('users', 'uploaded_files');
-            
+
         }
 
         if ($request->hasFile('cv')) {
@@ -88,11 +90,11 @@ class UserController extends Controller
                   'resume' =>   $cvPath ,
                 ]);
             }
-            
+
         }
 
-    
-    
+
+
         if ($user->role === 'candidate') {
             $user->candidate()->update([
                 'skills' => $validatedData['skills'],
@@ -101,11 +103,11 @@ class UserController extends Controller
                 'job_description' => $validatedData['job_description'] ?? '',
                 'phone' => $validatedData['phone'] ,
             ]);
-            
-        } 
+
+        }
 
         $user->save();
-    
+
         // return view('edit_user', ['user'=>$user])
         return to_route("users.edit" ,$user )->with('success', 'Profile updated successfully.');
 
@@ -119,7 +121,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user) 
+    public function destroy(User $user)
     {
         //
     }
