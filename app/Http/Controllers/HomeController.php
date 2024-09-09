@@ -49,12 +49,25 @@ class HomeController extends Controller
         return view('home' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
     }
 
-    public function search(String $key,String $criteria) 
+    public function search(Request $request) 
     {
+        // dd($request);
         $user = Auth::User();
-        $jobPosts = JobPost::all();
+
+        $key = $request->input('key');
+        $criteria = $request->input('criteria');
+        
+        $jobPosts = JobPost::where("{$criteria}", 'like', "{$key}")->get();
+        // $jobPosts = JobPost::search($key)->get();
+
+        // $jobPosts = JobPost::all();
         // dd($jobPosts);
-        return view('home' , ['jobPosts'=> $jobPosts ]);
+        // echo $key;
+        // echo $criteria;
+        return view('home', ['jobPosts'=> $jobPosts ,'user'=>$user]);
+
+        // return view('home' , ['jobPosts'=> $jobPosts ]);
         // return view('home' , ['user'=> $user ]);
+        // return view('home');
     }
 }
