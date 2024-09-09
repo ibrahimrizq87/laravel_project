@@ -22,6 +22,12 @@ Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadRe
 Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
 
 
+
+Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.create');
+// Routes for Applications
+Route::resource('applications', ApplicationController::class);
+
+
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
@@ -37,8 +43,8 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 
 
 
-// / ............................................................................................................................................... 
-// GET|HEAD        api/user ........................................................................................................................................ 
+// / ...............................................................................................................................................
+// GET|HEAD        api/user ........................................................................................................................................
 // GET|HEAD        applications ................................................................................... applications.index › ApplicationController@index
 // POST            applications ................................................................................... applications.store › ApplicationController@store
 // GET|HEAD        applications/create .......................................................................... applications.create › ApplicationController@create
@@ -66,7 +72,7 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 // GET|HEAD        register ................................................................................ register › Auth\RegisterController@showRegistrationForm
 // POST            register ....................................................................................................... Auth\RegisterController@register
 // GET|HEAD        sanctum/csrf-cookie ........................................................... sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
-// GET|HEAD        up .............................................................................................................................................. 
+// GET|HEAD        up ..............................................................................................................................................
 // GET|HEAD        users ........................................................................................................ users.index › UserController@index
 // POST            users ........................................................................................................ users.store › UserController@store
 // GET|HEAD        users/create ............................................................................................... users.create › UserController@create
