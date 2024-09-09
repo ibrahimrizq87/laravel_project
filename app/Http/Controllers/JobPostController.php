@@ -29,7 +29,8 @@ public function index() {
     
 public function show(JobPost $jobPost)
 {
-    return view('job_post.view_post', ['jobPost'=>$jobPost]);
+    $user = Auth::User();
+    return view('job_post.view_post', ['jobPost'=>$jobPost , 'user'=> $user ]);
     
 }
     

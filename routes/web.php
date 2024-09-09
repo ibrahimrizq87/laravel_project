@@ -3,6 +3,7 @@ use \App\Http\Controllers\JobPostController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ApplicationController;
 use \App\Http\Controllers\PDFResumeController;
+use \App\Http\Controllers\CommentController;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ Route::resource('applications', ApplicationController::class);
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
+Route::resource('comments', CommentController::class);
 
 
 use App\Http\Controllers\AdminController;
@@ -41,6 +43,7 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 
 
 
+// Route::post('/comments/{commentableType}/{commentableId}', [CommentController::class, 'store'])->name('comments.store');
 
 
 // / ...............................................................................................................................................
@@ -80,3 +83,12 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 // PUT|PATCH       users/{user} ............................................................................................... users.update › UserController@update
 // DELETE          users/{user} ............................................................................................. users.destroy › UserController@destroy
 // GET|HEAD        users/{user}/edit .............................................................................................. users.edit › UserController@edit
+// GET|HEAD        comments ................................................................................................... comments.index › CommentController@index
+// POST            comments ................................................................................................... comments.store › CommentController@store
+// GET|HEAD        comments/create .......................................................................................... comments.create › CommentController@create
+// GET|HEAD        comments/{comment} ........................................................................................... comments.show › CommentController@show
+// PUT|PATCH       comments/{comment} ....................................................................................... comments.update › CommentController@update
+// DELETE          comments/{comment} ..................................................................................... comments.destroy › CommentController@destroy
+// GET|HEAD        comments/{comment}/edit ...................................................................................... comments.edit › CommentController@edit
+// GET|HEAD        home ...................................................................................... home › HomeController@index
+// GET|HEAD        home/search ..........

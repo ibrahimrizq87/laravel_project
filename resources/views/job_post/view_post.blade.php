@@ -62,15 +62,25 @@
             </div>
         </div>
     </div>
+   
 
+                    
     <div class="card shadow-sm">
         <div class="card-body">
             <h4>Comments</h4>
-            <form action="" method="POST">
+            <form action="{{route('comments.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
+                @error('comment')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="comment">Add a Comment:</label>
-                    <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                    <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+               
+                    <input type="hidden" value ="{{$jobPost->id}}" name ="commentable_id" >
+                
+
+
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
@@ -89,14 +99,23 @@
         </div>
         
         <p class="my-2">{{ $comment->body }}</p>
+        
 
         <div class="d-flex justify-content-end">
-
-            <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+           
+        @if ($comment->user->id == Auth::user()->id)
+        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+</form>
+            @elseif (Auth::user()->role== 'admin' && $comment->user->id != Auth::user()->id)
+            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <button type="submit" class="btn btn-outline-danger btn-sm">Delete (not yours)</button>
             </form>
+            @endif
         </div>
     </div>
 </li>
