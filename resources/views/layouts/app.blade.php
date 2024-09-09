@@ -31,6 +31,7 @@
                 @if ( Auth::user()->role == 'admin')
                 <li><a href="#" class="nav-link px-2 link-dark">View Applications</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">Posts Acceptance</a></li>
+                <li><a href="{{ route('job_posts.index') }}" class="nav-link px-2 link-dark">Not Approved Posts</a></li>
                 @endif
             </ul>
             @endauth
@@ -100,22 +101,30 @@
         </div>
     </header>
   
-    @if (Auth::check() && Auth::user()->role == 'candidate' && Route::currentRouteName() == 'home')
+    @if (Auth::check() && Auth::user()->role == 'candidate' && Route::currentRouteName() == 'home'|| Route::currentRouteName() == 'home.search')
     <header class="p-3 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center">
-                    <input type="search" class="form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center" action="{{ route('home.search') }}" method="GET">
+                    <input type="search" name="key" class="form-control form-control-dark me-2" placeholder="Search..." aria-label="Search" value="{{ request()->input('key') }}">
                     <div class="input-group">
-                        <select class="form-select" id="inputGroupSelect02">
+                        <select name="criteria" class="form-select" id="inputGroupSelect02">
+                            <option value="job_title">Job Title</option>
+                            <option value="description">Description</option>
+                            <option value="required_skills">Skills</option>
                             <option value="location">Location</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="work_type">Work Type</option>
+                            <option value="work_from">Work From</option>
+                            <option value="s_from">Salary greater than</option>
+                            <option value="s_to">Salary less than</option>
+                            <!-- <option value="work_from">Work From</option> -->
                         </select>
                         <label class="input-group-text" for="inputGroupSelect02">Criteria</label>
                     </div>
-                </form>
+                    <button type="submit" class="btn btn-primary ms-3">Search</button>
+
+            </form>
 
 
             </div>
