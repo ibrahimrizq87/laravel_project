@@ -61,7 +61,7 @@
                         <h5 class="card-title py-2">Skills: {{$user->candidate->skills}}</h5>
                         @foreach($user->resumes as $r)
                         <h5 class="card-title py-2 d-inline"> Resume:<a href="{{ asset('uploads/CVs/' . $r->resume) }}"> {{$r->resume}}</a> </h5>
-                        <button class="py-2 px-2 bg-success text-white border-0 rounded-3 my-3 mx-4"> Add Resume </button>
+                        <button class="py-2 px-2 text-white border-0 rounded-3 my-3 mx-4" style="background-color:#102C57"> Add Resume </button>
 
                         @endforeach
 
@@ -74,7 +74,7 @@
                         @endif
 
 
-                        <button class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit Profile </button>
+                        <button class="py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </button>
 
                 </div>
 
@@ -103,8 +103,8 @@
                         @endif
                         <div class="text-center">
                             <button class="btn text-white" style="background-color:#102C57">View </button>
-                            <button class="btn bg-warning text-black">Edit </button>
-                            <button class="btn bg-danger text-white">Cancel </button>
+                            <button class="btn text-black" style="background-color:#DAC0A3">Edit </button>
+                            <button class="btn text-white" style="background-color:maroon">Cancel </button>
 
                         </div>
                     </div>
@@ -136,3 +136,4 @@
 </div>
 @endIf
 @endsection
+
