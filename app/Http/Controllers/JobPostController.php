@@ -11,24 +11,28 @@ use App\Http\Requests\UpdateJobPostValidate;
 use App\Models\JobPost;
 
 class JobPostController extends Controller
-{// app/Http/Controllers/EmployerController.php
+{ // app/Http/Controllers/EmployerController.php
 
-public function index() {
+    public function index()
+    {
 
-    $posts = JobPost::all();
+        $posts = JobPost::all();
 
-  
-    return view('job_post.view_post', ['posts' => $posts]);
+
+        return view('job_post.view_post', ['posts' => $posts]);
+    }
+
+
+
+    public function show() {
+   
+    return view('profile', compact('jobPost'));
 }
 
-    
-
-    
-    
 
     public function create()
     {
-        return view('job_post.add_job_post'); 
+        return view('job_post.add_job_post');
     }
 
     public function store(JobPostValidate $request)
@@ -51,29 +55,28 @@ public function index() {
     public function edit($id)
     {
         $job_post = JobPost::findOrFail($id);
-        return view('job_post.update_job_post', compact('job_post')); 
+        return view('job_post.update_job_post', compact('job_post'));
     }
 
     public function update(UpdateJobPostValidate $request, $id)
     {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
-        
+
         $jobPost = JobPost::findOrFail($id);
 
         if ($request->hasFile('image')) {
             if ($jobPost->image) {
                 Storage::disk('public')->delete($jobPost->image);
             }
-            
+
             $image = $request->file('image');
             $my_path = $image->store('uploads/posts', 'public');
             $validatedData['image'] = $my_path;
         }
-    
+
         $jobPost->update($validatedData);
-        
+
         return redirect()->route('job_posts.index')->with('success', 'Job post updated successfully.');
     }
-
 }
