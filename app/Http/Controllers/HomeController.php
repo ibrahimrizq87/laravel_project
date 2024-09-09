@@ -28,8 +28,11 @@ class HomeController extends Controller
     {
         $user = Auth::User();
         if ($user->role == "admin"){
-            // $jobPosts = JobPost::where('status', 'approved')->get();
-            $jobPosts = JobPost::all();
+            $jobPosts = JobPost::where('status', 'approved')->get();
+            // $jobPosts = JobPost::all();
+            // return view('job_post.approve_post' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
+
+            
         }
         elseif ($user->role== "employer" ){
             $jobPosts = JobPost::where('user_id', $user->id)->get();
@@ -40,7 +43,7 @@ class HomeController extends Controller
 
         }
 
-        $jobPosts = JobPost::all();
+        // $jobPosts = JobPost::all();
             // $jobPosts = JobPost::where('user_id', $user->id)->get();
         
         // dd($jobPosts);

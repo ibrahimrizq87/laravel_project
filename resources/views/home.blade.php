@@ -109,9 +109,7 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                     <a href="#" class="card-link">Apply Now</a>
                 @endif
                 
-                @if($user->role== "admin")
-                    <a href="#" class="card-link">approve it</a>
-                @endif
+               
 
           </div>
         </div>

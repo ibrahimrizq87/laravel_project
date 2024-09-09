@@ -31,6 +31,7 @@
                 @if ( Auth::user()->role == 'admin')
                 <li><a href="#" class="nav-link px-2 link-dark">View Applications</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">Posts Acceptance</a></li>
+                <li><a href="{{ route('job_posts.index') }}" class="nav-link px-2 link-dark">Not Approved Posts</a></li>
                 @endif
             </ul>
             @endauth
