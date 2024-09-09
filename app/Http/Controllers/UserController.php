@@ -74,7 +74,7 @@ class UserController extends Controller
 
 
         if ($request->filled('password')) {
-            $user->password = Hash::make($validatedData['password']);
+            //$user->password = Hash::make($validatedData['password']);
         }
 
         if ($request->hasFile('image')) {

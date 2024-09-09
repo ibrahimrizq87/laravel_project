@@ -8,19 +8,30 @@ use App\Http\Requests\JobPostValidate;
 use App\Http\Requests\UpdateJobPostValidate;
 use App\Models\JobPost;
 
+use Illuminate\Support\Facades\Auth;
+
+
 class JobPostController extends Controller
 {// app/Http/Controllers/EmployerController.php
 
 public function index() {
 
-    $posts = JobPost::all();
 
+    $user = Auth::User();
+
+    $jobPosts = JobPost::where('status','!=', 'approved')->get();
+    // $jobPosts = JobPost::all();
+    return view('job_post.approve_post' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
   
-    return view('job_post.view_post', ['posts' => $posts]);
+    // return view('job_post.approve_post', ['posts' => $posts]);
 }
 
     
-
+public function show(JobPost $jobPost)
+{
+    return view('job_post.view_post', ['jobPost'=>$jobPost]);
+    
+}
     
     
 

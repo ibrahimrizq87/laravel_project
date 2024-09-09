@@ -137,29 +137,3 @@
 </div>
 @endsection
 
-@section('styles')
-    <style>
-        .form-section {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        .form-section h4 {
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-        .alert {
-            margin-top: 10px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-secondary {
-            margin-left: 10px;
-        }
-    </style>
-@endsection

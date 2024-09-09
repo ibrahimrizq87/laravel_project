@@ -33,68 +33,92 @@
 
             <div class="form-section">
                 <h3>Job Details</h3>
+
+                @error('job_title')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="job_title">Job Title</label>
                     <input type="text" class="form-control" id="job_title" name="job_title">
-                    @error('job_title')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                   
                 </div>
 
+
+                @error('description')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                    @error('description')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                   
                 </div>
 
+
+                @error('responsibilities')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="responsibilities">Responsibilities</label>
                     <textarea class="form-control" id="responsibilities" name="responsibilities" rows="3"></textarea>
-                    @error('responsibilities')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                  
                 </div>
 
+
+                @error('required_skills')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="required_skills">Required Skills</label>
                     <textarea class="form-control" id="required_skills" name="required_skills" rows="3"></textarea>
-                    @error('required_skills')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                 
                 </div>
 
+
+                @error('qualifications')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="qualifications">Qualifications</label>
                     <textarea class="form-control" id="qualifications" name="qualifications" rows="3"></textarea>
-                    @error('qualifications')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                   
                 </div>
 <div>
-                <label for="salary_from">Salary From</label>
-<input type="text" class="form-control" id="salary_from" name="s_from">
+
+
 @error('s_from')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                <label for="salary_from">Salary From</label>
+<input type="text" class="form-control" id="salary_from" name="s_from">
+
     </div>
     <div>
+
+
+    @error('s_to')
+                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                    @enderror
 <label for="salary_to">Salary To</label>
 <input type="text" class="form-control" id="salary_to" name="s_to">
-@error('s_to')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+
     </div>
 
+
+
+    @error('location')
+                        <div class="alert alert-danger mt-3"  >{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="location">Location</label>
                     <input type="text" class="form-control" id="location" name="location">
-                    @error('location')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                 
                 </div>
 
+
+
+                @error('work_type')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="work_type">Work Type</label>
                     <select class="form-control" id="work_type" name="work_type">
@@ -102,10 +126,13 @@
                         <option value="part-time">Part-Time</option>
                         <option value="freelancing-job">Freelancing Job</option>
                     </select>
-                    @error('work_type')
+                 
+                </div>
+
+
+                @error('work_from')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
 
                 <div class="form-group">
                     <label for="work_from">Work From</label>
@@ -114,17 +141,17 @@
                         <option value="on-site">On-Site</option>
                         <option value="hybrid">Hybrid</option>
                     </select>
-                    @error('work_from')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                  
                 </div>
 
+
+                @error('application_deadline')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="form-group">
                     <label for="application_deadline">Application Deadline</label>
                     <input type="date" class="form-control" id="application_deadline" name="application_deadline">
-                    @error('application_deadline')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                   
                 </div>
 
 

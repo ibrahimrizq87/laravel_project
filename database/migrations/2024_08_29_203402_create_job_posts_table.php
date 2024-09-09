@@ -25,6 +25,7 @@ $table->bigInteger('s_from');
 $table->bigInteger('s_to');
 
 
+
             $table->text('benefits_offered')->nullable();
             $table->string('location');
 
