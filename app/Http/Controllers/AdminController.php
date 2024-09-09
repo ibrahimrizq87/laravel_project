@@ -18,7 +18,8 @@ class AdminController extends Controller
         $jobPost->status = 'approved';
         $jobPost->save();
 
-        return redirect()->route('admin.posts')->with('success', 'Job post approved successfully.');
+        return redirect()->route('job_posts.index')->with('success', 'Job post approved successfully.');
+        // return redirect()->route('admin.posts')->with('success', 'Job post approved successfully.');
     }
 
     public function cancel($id)
@@ -27,6 +28,7 @@ class AdminController extends Controller
         $jobPost->status = 'canceled';
         $jobPost->save();
 
-        return redirect()->route('admin.posts')->with('success', 'Job post canceled successfully.');
+        return redirect()->route('job_posts.index')->with('success', 'Job post canceled successfully.');
+        // return redirect()->route('admin.posts')->with('success', 'Job post canceled successfully.');
     }
 }
