@@ -10,25 +10,34 @@ use App\Http\Requests\JobPostValidate;
 use App\Http\Requests\UpdateJobPostValidate;
 use App\Models\JobPost;
 
+
+
 class JobPostController extends Controller
 { // app/Http/Controllers/EmployerController.php
 
     public function index()
     {
 
-        $posts = JobPost::all();
 
 
-        return view('job_post.view_post', ['posts' => $posts]);
-    }
+    $user = Auth::User();
 
-
-
-    public function show() {
-   
-    return view('profile', compact('jobPost'));
+    $jobPosts = JobPost::where('status', '!=', 'approved')->paginate(5);
+    // $jobPosts = JobPost::all();
+    return view('job_post.approve_post' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
+  
+    // return view('job_post.approve_post', ['posts' => $posts]);
 }
 
+    
+public function show(JobPost $jobPost)
+{
+    $user = Auth::User();
+    return view('job_post.view_post', ['jobPost'=>$jobPost , 'user'=> $user ]);
+    
+}
+    
+    
 
     public function create()
     {
@@ -78,5 +87,13 @@ class JobPostController extends Controller
         $jobPost->update($validatedData);
 
         return redirect()->route('job_posts.index')->with('success', 'Job post updated successfully.');
+    }
+
+
+
+    public function destroy(JobPost $jobPost){
+        $jobPost->delete();
+        return back()->with('success', 'job post deleted successfully Deleted successfully!');
+
     }
 }

@@ -93,7 +93,7 @@
                     @else
                     @foreach ($applications as $application)
                     <div class="card-body">
-                        @if($application->jobPost)
+                            @if($application->jobPost)
                         <h5 class="card-title fw-bolder"> <strong>Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
                         <p><strong>Description:</strong> {{ $application->additional_information }}</p>
                         <p><strong>Submitted On:</strong> {{ $application->created_at->format('F j, Y') }}</p>
@@ -101,8 +101,8 @@
                         <p>Job information not available</p>
                         @endif
                         <div class="text-center">
-                            <button class="btn text-white" style="background-color:#102C57">View </button>
-                            <button class="btn text-black" style="background-color:#DAC0A3">Edit </button>
+                            <a href="{{ route('applications.show' , $application->id) }}" class="btn text-white" style="background-color:#102C57">View </a>
+                            <a href="{{ route('applications.edit' , $application->id) }}" class="btn text-black" style="background-color:#DAC0A3">Edit </a>
                             <button class="btn text-white" style="background-color:maroon">Cancel </button>
 
                         </div>

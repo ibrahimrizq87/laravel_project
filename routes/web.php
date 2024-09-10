@@ -3,6 +3,7 @@ use \App\Http\Controllers\JobPostController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ApplicationController;
 use \App\Http\Controllers\PDFResumeController;
+use \App\Http\Controllers\CommentController;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -15,14 +16,29 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home/search', [App\Http\Controllers\HomeController::class, 'search'])->name('home.search');
+
 Route::get('/resume/{resume}', [PDFResumeController::class, 'viewResumePDF'])->name('resume.view');
 Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadResumePDF'])->name('resume.download');
 Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
 
 
+
+// Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+
+
+Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.add');
+// Routes for Applications
+Route::resource('applications', ApplicationController::class);
+
+
+Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+
+
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);
 Route::resource('applications', ApplicationController::class);
+Route::resource('comments', CommentController::class);
 
 
 use App\Http\Controllers\AdminController;
@@ -33,10 +49,11 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 
 
 
+// Route::post('/comments/{commentableType}/{commentableId}', [CommentController::class, 'store'])->name('comments.store');
 
 
-// / ............................................................................................................................................... 
-// GET|HEAD        api/user ........................................................................................................................................ 
+// / ...............................................................................................................................................
+// GET|HEAD        api/user ........................................................................................................................................
 // GET|HEAD        applications ................................................................................... applications.index › ApplicationController@index
 // POST            applications ................................................................................... applications.store › ApplicationController@store
 // GET|HEAD        applications/create .......................................................................... applications.create › ApplicationController@create
@@ -64,7 +81,7 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 // GET|HEAD        register ................................................................................ register › Auth\RegisterController@showRegistrationForm
 // POST            register ....................................................................................................... Auth\RegisterController@register
 // GET|HEAD        sanctum/csrf-cookie ........................................................... sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
-// GET|HEAD        up .............................................................................................................................................. 
+// GET|HEAD        up ..............................................................................................................................................
 // GET|HEAD        users ........................................................................................................ users.index › UserController@index
 // POST            users ........................................................................................................ users.store › UserController@store
 // GET|HEAD        users/create ............................................................................................... users.create › UserController@create
@@ -72,3 +89,12 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 // PUT|PATCH       users/{user} ............................................................................................... users.update › UserController@update
 // DELETE          users/{user} ............................................................................................. users.destroy › UserController@destroy
 // GET|HEAD        users/{user}/edit .............................................................................................. users.edit › UserController@edit
+// GET|HEAD        comments ................................................................................................... comments.index › CommentController@index
+// POST            comments ................................................................................................... comments.store › CommentController@store
+// GET|HEAD        comments/create .......................................................................................... comments.create › CommentController@create
+// GET|HEAD        comments/{comment} ........................................................................................... comments.show › CommentController@show
+// PUT|PATCH       comments/{comment} ....................................................................................... comments.update › CommentController@update
+// DELETE          comments/{comment} ..................................................................................... comments.destroy › CommentController@destroy
+// GET|HEAD        comments/{comment}/edit ...................................................................................... comments.edit › CommentController@edit
+// GET|HEAD        home ...................................................................................... home › HomeController@index
+// GET|HEAD        home/search ..........

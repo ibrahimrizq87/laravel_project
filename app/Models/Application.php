@@ -8,6 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'job_id',
+        'email',
+        'phone_number',
+        'location',
+        'resume_id',
+        'additional_information',
+    ];
+
+    public function resume()
+    {
+        return $this->belongsTo(Resume::class , 'resume_id'); // Define relationship with Resume
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -15,7 +31,6 @@ class Application extends Model
 
     public function jobPost()
     {
-        return $this->belongsTo(JobPost::class, 'job_id'); // Make sure 'job_id' matches your foreign key column
+        return $this->belongsTo(JobPost::class,'job_id');
     }
 }
-
