@@ -46,9 +46,37 @@
                     <p>{{ $application->created_at->format('d M Y') }}</p>
                 </div>
             </div>
+
+            <!-- Display Application Status -->
+            @if($application->status)
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <strong>Status:</strong>
+                        <p>{{ ucfirst($application->status) }}</p>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Status Update Form for Admins/Employers -->
+            @if(Auth::user()->isAdmin() || Auth::user()->isEmployer())
+                <form action="{{ route('applications.updateStatus', $application->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div class="form-group">
+                        <label for="status">Change Status:</label>
+                        <select name="status" id="status" class="form-control">
+                            <option value="approved" {{ $application->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="cancelled" {{ $application->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Update Status</button>
+                </form>
+            @endif
         </div>
         <div class="card-footer">
-            <a href="{{ route('applications.index') }}" class="btn btn-primary">Back to Applications</a>
+            @if(Auth::user()->isEmployer() || Auth::user()->isAdmin())
+                <a href="{{ route('job_posts.show',$application->jobPost->id) }}" class="btn btn-secondary">Return to Job Details</a>
+            @endif
         </div>
     </div>
 </div>

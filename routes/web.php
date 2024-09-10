@@ -22,8 +22,13 @@ Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadRe
 Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
 
 
+// Route::post('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 
-// Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+
+
+
 
 
 Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.create');
@@ -44,6 +49,8 @@ Route::get('/admin/posts', [AdminController::class, 'adminPosts'])->name('admin.
 
 Route::patch('/job_posts/{id}/approve', [AdminController::class, 'approve'])->name('job_posts.approve');
 Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name('job_posts.cancel');
+
+
 
 
 

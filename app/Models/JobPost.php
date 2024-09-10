@@ -35,4 +35,8 @@ class JobPost extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }
