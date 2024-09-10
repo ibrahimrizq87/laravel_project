@@ -104,7 +104,7 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 
                 
 
-                <a href="#" class="card-link">View Details</a>
+                <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn btn-outline-primary">View Details</a>
                 
                 @if($user->role== "candidate")
                     <a href="#" class="card-link">Apply Now</a>

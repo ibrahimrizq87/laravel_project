@@ -104,7 +104,6 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 
                 
 
-                <a href="#" class="card-link">View Details</a>
 
                 @if($jobPost->status == "pended")
 
@@ -125,7 +124,12 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 @endif
                
                 @if($jobPost->status == "canceled")
-                    <a href="#" class="card-link">delete</a>
+                <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="post"  class="card-link">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger card-link">Delete</button>
+
+                </form>
                 @endif
 
 

@@ -10,7 +10,6 @@ use App\Http\Requests\JobPostValidate;
 use App\Http\Requests\UpdateJobPostValidate;
 use App\Models\JobPost;
 
-use Illuminate\Support\Facades\Auth;
 
 
 class JobPostController extends Controller
@@ -88,5 +87,13 @@ public function show(JobPost $jobPost)
         $jobPost->update($validatedData);
 
         return redirect()->route('job_posts.index')->with('success', 'Job post updated successfully.');
+    }
+
+
+
+    public function destroy(JobPost $jobPost){
+        $jobPost->delete();
+        return back()->with('success', 'job post deleted successfully Deleted successfully!');
+
     }
 }

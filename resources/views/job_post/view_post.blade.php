@@ -24,6 +24,8 @@
     <div class="col-md-4">
       
         @if($jobPost->user->image == null)
+      
+
             <img src="{{asset('images/user.png')}}" class="img-fluid rounded-circle" alt="Emplyer Image">
         @else
         <img src="{{ asset('uploads/' . $jobPost->user->image) }}" class="img-fluid rounded-circle" alt="Employer Image">
@@ -90,8 +92,13 @@
                     <ul class="list-group list-group-flush">
                         @foreach($jobPost->comments as $comment)
                         <li class="list-group-item d-flex align-items-start">
-    <img src="{{ asset('uploads/' . $comment->user->image) }}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+                        @if($jobPost->user->image == null)
+      
 
+      <img src="{{asset('images/user.png')}}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+  @else
+    <img src="{{ asset('uploads/' . $comment->user->image) }}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+@endif
     <div class="w-100">
         <div class="d-flex justify-content-between align-items-center">
             <strong>{{ $comment->user->name }}</strong>
