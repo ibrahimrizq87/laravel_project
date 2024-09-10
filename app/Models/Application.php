@@ -16,7 +16,7 @@ class Application extends Model
         'phone_number',
         'location',
         'resume_id',
-        'additional_information',
+        'additional_information'
     ];
 
     public function resume()
@@ -33,4 +33,5 @@ class Application extends Model
     {
         return $this->belongsTo(JobPost::class,'job_id');
     }
+
 }

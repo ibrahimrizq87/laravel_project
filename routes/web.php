@@ -23,8 +23,13 @@ Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadRe
 Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
 
 
+// Route::post('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 
-// Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+
+
+
 
 
 Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.add');
@@ -50,6 +55,8 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 
 
 // Route::post('/comments/{commentableType}/{commentableId}', [CommentController::class, 'store'])->name('comments.store');
+
+
 
 
 // / ...............................................................................................................................................
