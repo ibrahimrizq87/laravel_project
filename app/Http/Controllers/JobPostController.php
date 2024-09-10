@@ -52,13 +52,13 @@ public function show(JobPost $jobPost)
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $my_path = $image->store('uploads/posts', 'public');
+            $my_path = $image->store('posts', 'uploaded_files');
         }
 
         $validatedData['image'] = $my_path;
         JobPost::create($validatedData);
 
-        return redirect()->route('job_posts.index')->with('success', 'Job post created successfully.');
+        return redirect()->route('home')->with('success', 'Job post created successfully.');
     }
 
     public function edit($id)
@@ -86,14 +86,14 @@ public function show(JobPost $jobPost)
 
         $jobPost->update($validatedData);
 
-        return redirect()->route('job_posts.index')->with('success', 'Job post updated successfully.');
+        return redirect()->route('home')->with('success', 'Job post updated successfully.');
     }
 
 
 
     public function destroy(JobPost $jobPost){
         $jobPost->delete();
-        return back()->with('success', 'job post deleted successfully Deleted successfully!');
+        return redirect()->route('home')->with('success', 'job post deleted successfully Deleted successfully!');
 
     }
 }

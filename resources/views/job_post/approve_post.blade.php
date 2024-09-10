@@ -62,6 +62,17 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
 ?>
 
 <div class="container mt-5">
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
 
     <div class="card mb-3" >
       <div class="row g-0 ">

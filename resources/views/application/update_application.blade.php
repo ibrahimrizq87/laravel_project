@@ -2,6 +2,18 @@
 
 @section('content')
 <div class="container">
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+
     <h2>Create New Application</h2>
     <form action="{{ route('applications.update',$application->id) }}" method="POST" enctype="multipart/form-data">
         @csrf

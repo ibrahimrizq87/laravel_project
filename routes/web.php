@@ -39,6 +39,7 @@ Route::resource('applications', ApplicationController::class);
 
 Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
 
+Route::get('applications/{application}/me', [ApplicationController::class, 'getMyApplications'])->name('applications.myPosts');
 
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);

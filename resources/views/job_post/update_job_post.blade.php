@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="container mt-5">
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
     <h2 class="mb-4">Edit Job Post</h2>
     <form action="{{ route('job_posts.update', $job_post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -129,10 +140,11 @@
             </div>
 
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+            <button type="submit" class="btn btn-primary">Update Job Post</button>
+            <a href="{{ route('job_posts.index') }}" class="btn btn-secondary">Cancel</a>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Job Post</button>
-        <a href="{{ route('job_posts.index') }}" class="btn btn-secondary">Cancel</a>
+     
     </form>
 </div>
 @endsection

@@ -5,6 +5,19 @@
 
 @section('content')
 <div class="container">
+
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+
     <h1 class="mt-4 mb-4">List of Applications</h1>
 
  
@@ -18,6 +31,7 @@
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Location</th>
+                    <th>status</th>
                     <th>Additional Information</th>
                     <th>Actions</th>
                 </tr>
@@ -30,18 +44,25 @@
                         <td>{{ $application->email }}</td>
                         <td>{{ $application->phone_number }}</td>
                         <td>{{ $application->location }}</td>
+                        @if ($application->status =='approved')
+                        <td class = 'text-success'><strong>{{ $application->status }}</strong></td>
+                        @else
+                        <td class = 'text-warning'><strong>{{ $application->status }}</strong></td>
+
+                        @endif
                         <td>{{ $application->additional_information }}</td>
-                      
                         <td>
                             <!-- Edit Button -->
+                            <a href="{{ route('job_posts.show', $application->jobPost->id) }}" class="btn btn-outline-success btn-sm mb-1">View post</a>
                             <a href="{{ route('applications.show', $application->id) }}" class="btn btn-warning btn-sm mb-1">View</a>
-
-                            <!-- Delete Button (with confirmation) -->
-                            <!-- <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;">
+                            @if ($application->status =='approved')
+                         <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form> -->
+                            </form>
+                        @endif
+                           
                         </td>
                     </tr>
                 @endforeach

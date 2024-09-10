@@ -7,8 +7,21 @@ use Carbon\Carbon;
 
 @extends('layouts.app')
 
-@section('content')
 
+@section('content')
+<div class ="container">
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+</div>  
 
 @foreach ($jobPosts as $jobPost)
 
@@ -16,17 +29,16 @@ use Carbon\Carbon;
 
 
 
-// dd($user->role)
-// dd($jobPost->user_id)
-
 $required_skills =explode(" ", $jobPost->required_skills);
 $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
-// $posted_from = Carbon::create(2024, 9, 8, 0, 0, 0, 'America/Toronto')->diffForHumans(['parts' => 1]);
 
 
 ?>
 
 <div class="container mt-5">
+
+
+
 
     <div class="card mb-3" >
       <div class="row g-0 ">
@@ -49,21 +61,29 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                     <span class="job-type m-2"><i class="fas fa-clock"></i> {{$jobPost->work_type}}</span>
                     <span class="job-type m-2"><i class="fa-solid fa-building"></i> {{$jobPost->work_from}}</span>
                     <span class="job-location m-2"><i class="fas fa-map-marker-alt"></i> {{$jobPost->location}}</span>
-                    <!-- <span class="badge badge-secondary">Remote</span> -->
-                    <!-- <span class="badge badge-info">Full-Time</span> -->
+        
                 </p>
 
-                Posted <span class="job-type m-2">{{$posted_from}}</span>
                 <p class="card-subtitle mb-2 text-muted">
-                    Budged<span class="job-type m-2">$ {{$jobPost->s_from}}</span>-
+                    <strong>Budged</strong><span class="job-type m-2">$ {{$jobPost->s_from}}</span>-
                     <span class="job-type m-2">$ {{$jobPost->s_to}}</span>
+<br>
+                    <strong>Posted</strong> <span class="job-type m-2">{{$posted_from}}</span>
+
+                </p>
+
+                <p class="card-subtitle mb-2 text-muted">
+     
+                    <strong>Number of Applications: </strong> <span class="job-type m-2">{{$jobPost->applications->count()}}</span>
+
                 </p>
 
                 <p class="card-subtitle mb-2 text-muted">
                     @if($user->role== "employer")
-                        Status<span class="job-type m-2">{{$jobPost->status}}</span>
+                        <strong>Status</strong><span class="job-type m-2">{{$jobPost->status}}</span>
                     @endif
-                    User Name<span class="job-type m-2">{{$jobPost->user->name}}</span>                    
+                    <br>
+                                        <strong>User Name</strong><span class="job-type m-2">{{$jobPost->user->name}}</span>                    
                 </p>
 
                 
@@ -73,6 +93,17 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 
                 @if($user->role== "candidate")
                     <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link">Apply Now</a>
+                @endif
+                @if($user->role== "employer")
+                <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+
+                            <a href="{{ route('job_posts.edit' , $jobPost->id) }}" class="btn btn-outline-success">Edit</a>
+
+
                 @endif
                 
                

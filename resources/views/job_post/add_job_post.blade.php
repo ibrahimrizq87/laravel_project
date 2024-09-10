@@ -27,6 +27,19 @@
 </head>
 <body>
     <div class="container mt-5">
+
+    @if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+
         <h2>Job Post Form</h2>
         <form action="{{ route('job_posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

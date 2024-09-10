@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('applications', function (Blueprint $table) {
-            // Adding a new column 'location' after 'phone_number'
-            $table->string('location')->after('phone_number');
+        // Schema::table('applications', function (Blueprint $table) {
+        //     // Adding a new column 'location' after 'phone_number'
+        //     $table->string('location')->after('phone_number');
 
-            // Modifying the 'resume' column to be nullable
-            $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade')->onUpdate('cascade');
-        });
+        //     // Modifying the 'resume' column to be nullable
+        //     $table->unsignedBigInteger('resume_id');
+        //     $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade')->onUpdate('cascade');
+        // });
     }
 
     /**
