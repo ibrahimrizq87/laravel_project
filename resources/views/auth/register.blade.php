@@ -45,7 +45,7 @@
 
 
         <div class="form-group">
-        <label for="gender fw-bolder">Gender</label>
+        <label for="gender" class="fw-bolder">Gender</label>
         <select id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror" required>
             <option value="">Select Gender</option>
             <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
@@ -60,7 +60,7 @@
     <br>
     
     <div class="form-group">
-        <label for="birthdate fw-bolder">Birthdate</label>
+        <label for="birthdate" class="fw-bolder">Birthdate</label>
         <input type="date" id="birthdate" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror" value="{{ old('birthdate') }}" required>
         @error('birthdate')
             <span class="invalid-feedback" role="alert">
