@@ -27,7 +27,7 @@
             
             @auth
             <ul class="nav nav-tabs col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ms-5">
-                <li><a href="{{route('home')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'home' ? 'active link-secondary' : 'link-dark' }}">home</a></li>
+                <li><a href="{{route('home')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'home' ? 'active link-secondary' : 'link-dark' }}">Home</a></li>
                 @if ( Auth::user()->role == 'employer')
                 <li><a href="{{route('job_posts.create')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'job_posts.create' ? 'active link-secondary' : 'link-dark' }}">Add Job Post</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">View Applications</a></li>
