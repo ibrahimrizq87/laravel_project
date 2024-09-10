@@ -30,7 +30,7 @@
                 <li><a href="{{route('home')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'home' ? 'active link-secondary' : 'link-dark' }}">home</a></li>
                 @if ( Auth::user()->role == 'employer')
                 <li><a href="{{route('job_posts.create')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'job_posts.create' ? 'active link-secondary' : 'link-dark' }}">Add Job Post</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">View Applications</a></li>
+                <li><a href="{{route('applications.index')}}" class="nav-link px-2 link-dark">View Applications</a></li>
                 @endif
                 @if ( Auth::user()->role == 'admin')
                 <li><a href="#" class="nav-link px-2 link-dark">View Applications</a></li>
@@ -124,7 +124,9 @@
     <main class="py-4">
         @yield('content')
     </main>
-
+   
+            <br>
+            <br>
     <footer class="text-center text-white w-100 fixed-bottom py-3" style="background-color: #030117;">
         &copy; ITI Laravel Team
     </footer>

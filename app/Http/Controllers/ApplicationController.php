@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
+
+    public function index()
+    {
+        $applications = Application::where('status', '!=', 'canceled')->paginate(6);
+        // $applications = Application::all()->paginate(5);
+
+        return view('application.index', compact('applications'));
+        
+    }
+
     public function createApplication($job_id)
     {
         $user = Auth::user();
@@ -53,7 +63,8 @@ class ApplicationController extends Controller
     {
         $validatedData = $request->validated();
 
-   
+        $validatedData['user_id'] = Auth::user()->id;
+
 
         if ($request->hasFile('resume')) {
             $resumePath = $request->file('resume')->store('CVs', 'uploaded_files');

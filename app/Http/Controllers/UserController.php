@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -67,10 +67,9 @@ class UserController extends Controller
         $validatedData = $request->validated();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
-        $user->gender = $validatedData['gender'];
+
         $user->birthdate = $validatedData['birthdate'];
         $imagePath = $user->image;
-        $user->role = $validatedData['role'] ?? 'admin' ;
 
 
         if ($request->filled('password')) {

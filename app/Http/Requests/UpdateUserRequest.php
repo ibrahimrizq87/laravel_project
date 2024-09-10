@@ -24,20 +24,11 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'gender' => 'required|string',
             'birthdate' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'role' => 'nullable|string|in:employer,candidate',
             'cv' => ['nullable','mimes:pdf'],
-            'role' => [
-                'nullable',
-                'string',
-                function ($attribute, $value, $fail) {
-                    if ($this->role != 'admin' && empty($value)) {
-                        $fail('The skills field is required when role is candidate.');
-                    }
-                },
-            ],
+
+    
 
             'skills' => [
                 'nullable',
