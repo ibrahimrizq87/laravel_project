@@ -21,7 +21,7 @@ class Application extends Model
 
     public function resume()
     {
-        return $this->belongsTo(Resume::class); // Define relationship with Resume
+        return $this->belongsTo(Resume::class , 'resume_id'); 
     }
 
     public function user()

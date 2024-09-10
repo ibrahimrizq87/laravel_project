@@ -14,6 +14,7 @@ class UpdateApplicationRequest extends FormRequest
 
     public function rules()
     {
+        
         return [
             // 'job_id' => 'required|integer|exists:job_posts,id',
             'email' => 'required|email|max:255',

@@ -66,11 +66,16 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
     <div class="card mb-3" >
       <div class="row g-0 ">
 
+      @if($jobPost->image != null)
+
         <div class="col-md-3">
-          <img src="{{$jobPost->image}}" class="img-fluid rounded-start" alt="{{$jobPost->image}}">
+          <img src="{{ asset('uploads/'.$jobPost->image) }}" class="img-fluid rounded-start" alt="Job post">
         </div>
-        
         <div class="col-md-9">
+        @else
+        <div class="col-md-12 p-3 w-100">
+
+        @endif
           <div class="card-body">
           <h5 class="card-title">{{$jobPost->job_title}}</h5>
                 
@@ -104,17 +109,32 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 
                 
 
-                <a href="#" class="card-link">View Details</a>
 
                 @if($jobPost->status == "pended")
 
-                    <a href="#" class="card-link">approve</a>
-                    <a href="#" class="card-link">reject</a>
+                    <form action="{{ route('job_posts.approve', $jobPost->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form action="{{ route('job_posts.cancel', $jobPost->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+
+                    
                     
                 @endif
                
                 @if($jobPost->status == "canceled")
-                    <a href="#" class="card-link">delete</a>
+                <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="post"  class="card-link">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger card-link">Delete</button>
+
+                </form>
                 @endif
 
 
@@ -123,6 +143,8 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
 
       </div>
     </div>
+
+      
 </div>
 
 
@@ -133,7 +155,9 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
 @endforeach
 
 
-
+<div class="pagination justify-content-center mt-4">
+    {{ $jobPosts->links('pagination::bootstrap-4') }}
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -21,8 +21,9 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <strong>Resume:</strong>
-                    @if($application->resume)
-                        <p><a href="{{ asset('storage/' . $application->resume->resume) }}" target="_blank">View Resume</a></p>
+                    
+                    @if($resume)
+                        <p><a href="{{ asset('uploads/' . $resume->resume) }}" target="_blank">View Resume</a></p>
                     @else
                         <p>No resume uploaded.</p>
                     @endif

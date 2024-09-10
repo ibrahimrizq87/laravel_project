@@ -24,6 +24,8 @@
     <div class="col-md-4">
       
         @if($jobPost->user->image == null)
+      
+
             <img src="{{asset('images/user.png')}}" class="img-fluid rounded-circle" alt="Emplyer Image">
         @else
         <img src="{{ asset('uploads/' . $jobPost->user->image) }}" class="img-fluid rounded-circle" alt="Employer Image">
@@ -62,15 +64,25 @@
             </div>
         </div>
     </div>
+   
 
+                    
     <div class="card shadow-sm">
         <div class="card-body">
             <h4>Comments</h4>
-            <form action="" method="POST">
+            <form action="{{route('comments.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
+                @error('comment')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="comment">Add a Comment:</label>
-                    <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                    <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+               
+                    <input type="hidden" value ="{{$jobPost->id}}" name ="commentable_id" >
+                
+
+
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
@@ -80,8 +92,13 @@
                     <ul class="list-group list-group-flush">
                         @foreach($jobPost->comments as $comment)
                         <li class="list-group-item d-flex align-items-start">
-    <img src="{{ asset('uploads/' . $comment->user->image) }}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+                        @if($jobPost->user->image == null)
+      
 
+      <img src="{{asset('images/user.png')}}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+  @else
+    <img src="{{ asset('uploads/' . $comment->user->image) }}" class="rounded-circle me-3" alt="User IMage " style="width: 50px; height: 50px; object-fit: cover;">
+@endif
     <div class="w-100">
         <div class="d-flex justify-content-between align-items-center">
             <strong>{{ $comment->user->name }}</strong>
@@ -89,14 +106,23 @@
         </div>
         
         <p class="my-2">{{ $comment->body }}</p>
+        
 
         <div class="d-flex justify-content-end">
-
-            <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+           
+        @if ($comment->user->id == Auth::user()->id)
+        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+</form>
+            @elseif (Auth::user()->role== 'admin' && $comment->user->id != Auth::user()->id)
+            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <button type="submit" class="btn btn-outline-danger btn-sm">Delete (not yours)</button>
             </form>
+            @endif
         </div>
     </div>
 </li>
