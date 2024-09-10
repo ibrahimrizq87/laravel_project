@@ -7,7 +7,7 @@
         @csrf
         @method('PUT')
 
-        <div class="form-section mb-4 p-4 border rounded bg-light shadow-sm">
+        <div class="form-section mb-4 p-4 border rounded shadow-lg w-50 m-auto" style="background-color:#ffffff">
             <h4 class="mb-3">Job Details</h4>
             <div class="form-group">
                 <label for="job_title">Job Title</label>
