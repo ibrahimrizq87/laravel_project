@@ -8,32 +8,6 @@ use Carbon\Carbon;
 @extends('layouts.app')
 
 @section('content')
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-                
-                <div class="card-body">
-                    @if (auth()->check() && auth()->user()->role === 'admin')
-                        <p>Welcome, Admin!</p>
-                        <a href="{{ route('admin.posts') }}" class="btn btn-primary">Manage Job Posts</a>
-                    @elseif (auth()->check() && auth()->user()->role === 'employer')
-                        <p>Welcome, Employer!</p>
-                        <a href="{{ route('job_posts.index') }}" class="btn btn-primary">Manage Job Posts</a>
-                    @else
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        {{ __('You are logged in!') }}
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <head>
     <!-- Bootstrap CSS -->
@@ -67,7 +41,7 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
       <div class="row g-0 ">
 
         <div class="col-md-3">
-          <img src="{{$jobPost->image}}" class="img-fluid rounded-start" alt="{{$jobPost->image}}">
+          <img src="{{ asset('uploads/'.$jobPost->image) }}" class="img-fluid rounded-start" alt="{{$jobPost->image}}">
         </div>
         
         <div class="col-md-9">
@@ -107,7 +81,7 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                 <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn btn-outline-primary">View Details</a>
                 
                 @if($user->role== "candidate")
-                    <a href="#" class="card-link">Apply Now</a>
+                    <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link">Apply Now</a>
                 @endif
                 
                
@@ -126,6 +100,9 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
 
 @endforeach
 
+<div class="pagination justify-content-center mt-4">
+    {{ $jobPosts->links('pagination::bootstrap-4') }}
+</div>
 
 
 

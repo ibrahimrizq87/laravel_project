@@ -21,7 +21,7 @@ class Application extends Model
 
     public function resume()
     {
-        return $this->belongsTo(Resume::class); // Define relationship with Resume
+        return $this->belongsTo(Resume::class , 'resume_id'); // Define relationship with Resume
     }
 
     public function user()
@@ -31,6 +31,6 @@ class Application extends Model
 
     public function jobPost()
     {
-        return $this->belongsTo(JobPost::class);
+        return $this->belongsTo(JobPost::class,'job_id');
     }
 }

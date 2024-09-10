@@ -28,49 +28,31 @@ class HomeController extends Controller
     {
         $user = Auth::User();
         if ($user->role == "admin"){
-            $jobPosts = JobPost::where('status', 'approved')->get();
-            // $jobPosts = JobPost::all();
-            // return view('job_post.approve_post' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
-
+            $jobPosts = JobPost::where('status', 'approved')->paginate(5);
+      
             
         }
         elseif ($user->role== "employer" ){
-            $jobPosts = JobPost::where('user_id', $user->id)->get();
+            $jobPosts = JobPost::where('user_id', $user->id)->paginate(5);
         }
         else {
-            $jobPosts = JobPost::where('status', 'approved')->get();
-            // $jobPosts = JobPost::all();
-
+            $jobPosts = JobPost::where('status', 'approved')->paginate(5);
+      
         }
 
-        // $jobPosts = JobPost::all();
-            // $jobPosts = JobPost::where('user_id', $user->id)->get();
-        
-        // dd($jobPosts);
-        // return view('home' , ['user'=> $user ]);
-        
+
         return view('home' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
     }
 
     public function search(Request $request) 
     {
-        // dd($request);
         $user = Auth::User();
 
         $key = $request->input('key');
         $criteria = $request->input('criteria');
         
-        $jobPosts = JobPost::where("{$criteria}", 'like', "{$key}")->get();
-        // $jobPosts = JobPost::search($key)->get();
-
-        // $jobPosts = JobPost::all();
-        // dd($jobPosts);
-        // echo $key;
-        // echo $criteria;
+        $jobPosts = JobPost::where("{$criteria}", 'like', "%{$key}%")->paginate(5);
+      
         return view('home', ['jobPosts'=> $jobPosts ,'user'=>$user]);
-
-        // return view('home' , ['jobPosts'=> $jobPosts ]);
-        // return view('home' , ['user'=> $user ]);
-        // return view('home');
     }
 }

@@ -27,7 +27,7 @@ Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume
 // Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
 
 
-Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.create');
+Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.add');
 // Routes for Applications
 Route::resource('applications', ApplicationController::class);
 

@@ -53,10 +53,11 @@
             @enderror
         </div>
 
+
+        @if($resumes)
         <div class="form-group">
             <label for="resume_option">Choose Existing Resume</label>
             <select name="resume_option" id="resume_option" class="form-control @error('resume_option') is-invalid @enderror">
-                <option value="">Select a resume</option>
                 @foreach ($resumes as $resume)
                 <option value="{{ $resume->id }}" {{ old('resume_option') == $resume->id ? 'selected' : '' }}>
                     Resume {{ $loop->index + 1 }}
@@ -69,6 +70,9 @@
             </span>
             @enderror
         </div>
+        @else
+        <!-- <div class="alert alert-danger">You can not apply without a resume please update your profile first then apply</div> -->
+        @endif
 
         <div class="form-group">
             <label for="additional_information">Additional Information</label>

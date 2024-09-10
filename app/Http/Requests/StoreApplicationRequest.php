@@ -16,14 +16,15 @@ class StoreApplicationRequest extends FormRequest
 
     public function rules()
     {
+        
         return [
             'job_id' => 'required|integer|exists:job_posts,id',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'resume_option' => 'nullable|exists:resumes,id',
-            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'additional_information' => 'nullable|string',
+            'resume_option' => 'required_without:resume|exists:resumes,id',
+            'resume' => 'required_without:resume_option|file|mimes:pdf|max:2048',
         ];
     }
 }
