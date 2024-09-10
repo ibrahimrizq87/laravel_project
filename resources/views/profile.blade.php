@@ -56,25 +56,24 @@
                     <h5 class="card-title py-2">E-mail: {{$user->email}}</h5>
                     <h5 class="card-title py-2">User Type: {{$user->role}}</h5>
                     <h5 class="card-title py-2">Gender: {{$user->gender}}</h>
-                        <h5 class="card-title py-2">Birthdate: {{$user->birthdate}}</h5>
-                        <h5 class="card-title py-2">Phone: {{$user->candidate->phone}}</h5>
-                        <h5 class="card-title py-2">Skills: {{$user->candidate->skills}}</h5>
-                        @foreach($user->resumes as $r)
-                        <h5 class="card-title py-2 d-inline"> Resume:<a href="{{ asset('uploads/CVs/' . $r->resume) }}"> {{$r->resume}}</a> </h5>
-                        <button class="py-2 px-2 text-white border-0 rounded-3 my-3 mx-4" style="background-color:#102C57"> Add Resume </button>
+                    <h5 class="card-title py-2">Birthdate: {{$user->birthdate}}</h5>
+                    <h5 class="card-title py-2">Phone: {{$user->candidate->phone}}</h5>
+                    <h5 class="card-title py-2">Skills: {{$user->candidate->skills}}</h5>
+                    @foreach($user->resumes as $r)
+                    <h5 class="card-title py-2 d-inline"> Resume:<a href="{{ asset('uploads/CVs/' . $r->resume) }}" target="_blank"> {{$r->resume}}</a> </h5>
 
-                        @endforeach
+                    @endforeach
 
-                        @if ($user->candidate->employed == 'employed')
-                        <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
-                        <h5 class="card-title py-2">Company: {{ucwords($user->candidate->company)}}</h5>
-                        <h5 class="card-title py-2">Job Description: {{ucwords($user->candidate->job_description)}}</h5>
-                        @else
-                        <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
-                        @endif
+                    @if ($user->candidate->employed == 'employed')
+                    <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
+                    <h5 class="card-title py-2">Company: {{ucwords($user->candidate->company)}}</h5>
+                    <h5 class="card-title py-2">Job Description: {{ucwords($user->candidate->job_description)}}</h5>
+                    @else
+                    <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
+                    @endif
 
 
-                        <button class="py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </button>
+                    <button class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </>
 
                 </div>
 
