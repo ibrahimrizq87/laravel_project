@@ -14,31 +14,28 @@
 
 
     .overlay {
-    background-color: rgba(0, 0, 0, 0.6); /* Black overlay with 60% opacity */
-    z-index: 1; /* Make sure overlay is on top of the image */
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1; 
 }
 
-/* Styling for the text */
+
 .overlay-text {
-    z-index: 2; /* Higher than the overlay so the text is visible */
+    z-index: 2; 
     color: white;
   }
 
-/* Adjust main title */
 .main-title {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
 }
 
-/* Adjust paragraph text */
 .text-muted {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: white;
  
 }
 
-/* Responsive adjustments */
 
   </style>
 </head>
@@ -66,18 +63,18 @@
  
   <div class="container-fluid p-0 position-relative">
     <div class="position-relative">
-        <img src="{{ asset('images/imageb.jpg') }}" alt="Website Image" class="img-fluid w-100 h-50">
+        <img src="{{ asset('images/imageb.jpg') }}" alt="Website Image" class="img-fluid">
         <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
-        <div class="overlay-text position-absolute top-50 start-50 translate-middle text-center">
-            <h1 class="main-title text-white">Welcome to Better Career Website</h1>
-            <p class="text-muted" style="color:#ffffff">
+        <div class="overlay-text position-absolute top-50 start-50 translate-middle text-center text-white">
+            <h1 class="display-1">Welcome to Better Career Website</h1>
+            <p class="lead">
                 Welcome to Better Career, your go-to platform for career development and opportunities. <br>
                 Explore our resources to elevate your professional journey. <br>
                 Stay tuned for exciting updates and new features that will help you achieve your career goals.
             </p>
         </div>
     </div>
-</div>
+  </div>
 
 
 
