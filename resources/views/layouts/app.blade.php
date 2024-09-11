@@ -103,8 +103,9 @@
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center" action="{{ route('home.search') }}" method="GET">
                     <input type="search" name="key" class="form-control" placeholder="Search..." aria-label="Search" value="{{ request()->input('key') }}">
-                    <div class="input-group w-75" >
-                        <select name="criteria" class="form-select" id="inputGroupSelect02">
+                    <div class="input-group w-25" >
+                        <select name="criteria" class="form-select" id="inputGroupSelect02" style="width:200px">
+                            <option value="filterby" disabled selected >FilterBy</option>
                             <option value="job_title">Job Title</option>
                             <option value="description">Description</option>
                             <option value="required_skills">Skills</option>
@@ -114,7 +115,7 @@
                             <option value="s_from">Salary greater than</option>
                             <option value="s_to">Salary less than</option>
                         </select>
-                        <label class="input-group-text" for="inputGroupSelect02">Filter By</label>
+                        <!-- <label class="input-group-text" for="inputGroupSelect02">Filter By</label> -->
                     </div>
                     <button type="submit" class="btn text-white ms-1" style="background-color:#102C57">Search</button>
                 </form>

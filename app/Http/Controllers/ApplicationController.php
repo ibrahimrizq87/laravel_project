@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
+    public function index()
+    {
+        $applications = Application::paginate(5);
+
+        return view('application.index', compact('applications'));
+    }
+
     public function createApplication($job_id)
     {
         $user = Auth::user();

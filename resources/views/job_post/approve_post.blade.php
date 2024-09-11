@@ -62,7 +62,7 @@ use Carbon\Carbon;
                     <form action="{{ route('job_posts.cancel', $jobPost->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-danger">Reject</button>
+                        <button type="submit" class="btn" style="background-color:maroon; color:white">Reject</button>
                     </form>
                     @endif
 
@@ -70,7 +70,7 @@ use Carbon\Carbon;
                     <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="post" class="card-link">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger card-link">Delete</button>
+                        <button type="submit" class="btn card-link" style="background-color:maroon; color:white">Delete</button>
                     </form>
                     @endif
                 </div>

@@ -16,9 +16,10 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
         <div class="row g-0">
             <div class="col w-75">
                 <div class="card-body d-flex justify-content-around">
-                    <div><span class="card-title"><strong class="pe-2">Employer Name:</strong>{{ $jobPost->user->name}}</span>
+                    <div class="pt-3">
+                        <span class="card-title"><strong class="pe-2">Employer Name:</strong>{{ $jobPost->user->name}}</span>
                     </div>
-                    <div>
+                    <div class="pt-3">
                         <span class="card-text"><strong class="pe-2">Email: </strong>{{ $jobPost->user->email}}</span>
                     </div>
                     <div>
@@ -113,7 +114,7 @@ $posted_from = $jobPost->created_at->diffForHumans(['parts' => 1]);
                                     <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        <button type="submit" class="btn btn-sm" style="background-color:maroon; color:white">Delete</button>
                                     </form>
                                     @elseif (Auth::user()->role== 'admin' && $comment->user->id != Auth::user()->id)
                                     <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">

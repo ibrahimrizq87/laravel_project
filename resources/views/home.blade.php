@@ -59,7 +59,7 @@ use Carbon\Carbon;
                     </div>
 
                     @if($user->role== "candidate")
-                    <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link" style="background-color:#102C57; color:#ffffff">Apply Now</a>
+                    <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link" style="padding-top: 10px;" >Apply Now</a>
                     @endif
 
 
