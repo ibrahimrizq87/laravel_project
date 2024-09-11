@@ -12,7 +12,7 @@
 <div class="container m-auto w-50 h-75 mb-5" >
     <div class="col-12">
         <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg" style="background-color:#ffffff;">
-            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-2" style="height:120px; width:120px" alt="">
+            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-5" style="height:150px; width:150px; border:2px solid #030117" alt="">
             <div class="card-body text-center">
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Name :</strong> {{ ucwords($user->name) }}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">E-mail :</strong> {{$user->email}}</h5>
@@ -31,7 +31,7 @@
 <div class="container m-auto w-50 h-75 mb-5" >
     <div class="col-12">
         <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg" style="background-color:#ffffff;">
-            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-2" style="height:120px; width:120px" alt="">
+            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-3" style="height:150px; width:150px; border:2px solid #030117;" alt="">
             <div class="card-body text-center">
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Name :</strong> {{ ucwords($user->name) }}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">E-mail :</strong> {{$user->email}}</h5>
@@ -48,32 +48,33 @@
     <div class="row">
         <!--Profile-->
         <div class="col-12 col-md-4">
-            <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg">
+            <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg mb-5">
 
-                <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-3" style="height:150px; width:150px" alt="">
+                <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-3" style="height:150px; width:150px; border:2px solid #030117" alt="">
                 <div class="card-body text-start">
-                    <h5 class="card-title py-2">Name: {{ ucwords($user->name) }}</h5>
-                    <h5 class="card-title py-2">E-mail: {{$user->email}}</h5>
-                    <h5 class="card-title py-2">User Type: {{$user->role}}</h5>
-                    <h5 class="card-title py-2">Gender: {{$user->gender}}</h>
-                    <h5 class="card-title py-2">Birthdate: {{$user->birthdate}}</h5>
-                    <h5 class="card-title py-2">Phone: {{$user->candidate->phone}}</h5>
-                    <h5 class="card-title py-2">Skills: {{$user->candidate->skills}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Name:</strong> {{ ucwords($user->name) }}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">E-mail:</strong> {{$user->email}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">User Type:</strong> {{$user->role}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Gender:</strong> {{$user->gender}}</h>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Birthdate:</strong> {{$user->birthdate}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Phone: </strong>{{$user->candidate->phone}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Skills:</strong> {{$user->candidate->skills}}</h5>
                     @foreach($user->resumes as $r)
-                    <h5 class="card-title py-2 d-inline"> Resume:<a href="{{ asset('uploads/CVs/' . $r->resume) }}" target="_blank"> {{$r->resume}}</a> </h5>
+                    <h6 class="card-title py-2 d-inline"><strong class="fw-bolder pe-2">Resume:</strong><a href="{{ asset('uploads/CVs/' . $r->resume) }}" target="_blank"> {{$r->resume}}</a> </h6>
 
                     @endforeach
 
                     @if ($user->candidate->employed == 'employed')
-                    <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
-                    <h5 class="card-title py-2">Company: {{ucwords($user->candidate->company)}}</h5>
-                    <h5 class="card-title py-2">Job Description: {{ucwords($user->candidate->job_description)}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Employment Status:</strong> {{ucwords($user->candidate->employed)}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Company:</strong> {{ucwords($user->candidate->company)}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder pe-2">Job Description:</strong> {{ucwords($user->candidate->job_description)}}</h5>
                     @else
-                    <h5 class="card-title py-2">Employment Status: {{ucwords($user->candidate->employed)}}</h5>
+                    <h6 class="card-title py-2"><strong class="fw-bolder">Employment Status:</strong> {{ucwords($user->candidate->employed)}}</h5>
                     @endif
 
-
-                    <button class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </>
+                    <div class="text-center">
+                     <button class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </>
+                    </div>
 
                 </div>
 
