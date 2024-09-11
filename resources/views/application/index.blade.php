@@ -1,6 +1,7 @@
 
 
 
+
   @extends('layouts.app')
 
 @section('content')
@@ -78,12 +79,12 @@
 
 
     @else
-        <p class="text-center">No applications found.</p>
+    <p class="text-center">No applications found.</p>
     @endif
 </div>
 
 <!-- Inline Styling -->
-<style>
+<!-- <style>
     .container {
         background-color: #f7f9fc;
         padding: 30px;
@@ -156,5 +157,5 @@
     .text-center {
         color: #6c757d;
     }
-</style>
+</style> -->
 @endsection

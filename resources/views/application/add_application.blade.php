@@ -92,7 +92,7 @@
             @enderror
         </div>
         <div class="text-center">
-            <button type="submit" class="btn" style="background-color:#102C57; color: #ffffff;">Submit Application</button>
+            <button type="submit" class="btn" style="background-color:#102C57; color: #ffffff;">Submit</button>
 
         </div>
     </form>

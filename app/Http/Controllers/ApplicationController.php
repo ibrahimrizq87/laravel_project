@@ -16,7 +16,6 @@ use App\Models\JobPost;
 
 class ApplicationController extends Controller
 {
-
     function __construct(){
         $this->middleware('auth');
     }
@@ -25,7 +24,7 @@ class ApplicationController extends Controller
         if (Auth::user()->cannot('viewAny',Application::class)) {
             return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
         } 
-        $applications = Application::where('status', '!=', 'cancelled')->paginate(6);
+        $applications = Application::where('status', '!=', 'cancelled')->paginate(5);
         return view('application.index', compact('applications'));
         
     }
