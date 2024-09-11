@@ -67,14 +67,7 @@ use Carbon\Carbon;
                     </p>
 
 
-                    <div class="text-center">
-                        <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn" style="background-color:#102C57; color:#ffffff">View Details</a>
-                    </div>
-
-                    @if($user->role== "candidate")
-                    <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link" style="background-color:#102C57; color:#ffffff">Apply Now</a>
-                    @endif
-                    
+                
                                   <p class="card-subtitle mb-2 text-muted">
      
                     <strong>Number of Applications: </strong> <span class="job-type m-2">{{$jobPost->applications->count()}}</span>
@@ -90,11 +83,16 @@ use Carbon\Carbon;
                 </p>
 
 
-                <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn btn-outline-primary">View Details</a>
-                
-                @if($user->role== "candidate")
+                <div class="text-center">
+                        <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn" style="background-color:#102C57; color:#ffffff">View Details</a>
+                  
+                   
+                        @if($user->role== "candidate")
                     <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link">Apply Now</a>
                 @endif
+                    </div>
+                
+              
                 @if($user->role== "employer")
                 <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="POST" style="display:inline-block;">
                                 @csrf

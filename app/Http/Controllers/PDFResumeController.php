@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Resume;  
 
 
+use Illuminate\Support\Facades\Auth;
 
 class PDFResumeController extends Controller
 {

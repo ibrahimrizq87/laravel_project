@@ -22,6 +22,10 @@ class JobPostController extends Controller
     public function index()
     {
 
+       
+        if (Auth::user()->cannot('approveOrReject',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
 
 
     $user = Auth::User();
@@ -45,11 +49,17 @@ public function show(JobPost $jobPost)
 
     public function create()
     {
+        if (Auth::user()->cannot('create',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
         return view('job_post.add_job_post');
     }
 
     public function store(JobPostValidate $request)
     {
+        if (Auth::user()->cannot('create',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
         $my_path = '';
@@ -68,15 +78,25 @@ public function show(JobPost $jobPost)
     public function edit($id)
     {
         $job_post = JobPost::findOrFail($id);
+
+        if (Auth::user()->cannot('update', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         return view('job_post.update_job_post', compact('job_post'));
     }
 
     public function update(UpdateJobPostValidate $request, $id)
     {
+        $jobPost = JobPost::findOrFail($id);
+
+        if (Auth::user()->cannot('update', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
 
-        $jobPost = JobPost::findOrFail($id);
 
         if ($request->hasFile('image')) {
             if ($jobPost->image) {
@@ -96,6 +116,10 @@ public function show(JobPost $jobPost)
 
 
     public function destroy(JobPost $jobPost){
+        if (Auth::user()->cannot('delete', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         $jobPost->delete();
         return redirect()->route('home')->with('success', 'job post deleted successfully Deleted successfully!');
 

@@ -31,6 +31,7 @@ Route::patch('/applications/{application}/status', [ApplicationController::class
 
 
 
+Route::get('/users/createAdmin', [UserController::class, 'addAdmin'])->name('users.addAdmin');
 
 Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.add');
 // Routes for Applications

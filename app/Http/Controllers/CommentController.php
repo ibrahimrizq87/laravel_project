@@ -10,9 +10,9 @@ use App\Http\Requests\createComment;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -81,6 +81,10 @@ class CommentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Comment $comment){
+        if (Auth::user()->cannot('delete', $comment)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         $comment->delete();
         return back()->with('success', 'Comment Deleted successfully!');
 

@@ -8,6 +8,10 @@ use App\Models\JobPost;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Application;
+use App\Policies\JobPostPolicy;
+use App\Policies\CommentPolicy;
+use App\Policies\UserPolicy;
+use App\Policies\ApplicationPolicy;
 
 use Illuminate\Support\Facades\Gate;
 

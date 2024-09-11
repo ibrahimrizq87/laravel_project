@@ -14,7 +14,7 @@
 {{ session('error') }}</div>
 @endif
 
-    <h2>Create New Application</h2>
+    <h2>Update Application</h2>
     <form action="{{ route('applications.update',$application->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
