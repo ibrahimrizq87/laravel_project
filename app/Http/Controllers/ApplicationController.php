@@ -48,7 +48,6 @@ class ApplicationController extends Controller
         if (Application::where('user_id' , Auth::id())->where('job_id' , $job_id)->exists()) {
             
             $application = Application::where('user_id' , Auth::id())->where('job_id' , $job_id)->first();
-            // dd($application);
             return redirect()->route('applications.edit' , $application->id)->with('error', 'sorry but you do not have the privilage to do this operation.');
         } 
 
