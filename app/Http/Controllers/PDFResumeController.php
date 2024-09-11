@@ -11,6 +11,9 @@ use App\Models\Resume;
 
 class PDFResumeController extends Controller
 {
+    function __construct(){
+        $this->middleware('auth');
+    }
 
     public function viewResumePDF(Resume $resume)
     {

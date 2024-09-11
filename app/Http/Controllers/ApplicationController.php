@@ -16,6 +16,9 @@ use App\Models\User;
 class ApplicationController extends Controller
 {
 
+    function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         $applications = Application::where('status', '!=', 'cancelled')->paginate(6);
@@ -114,6 +117,15 @@ class ApplicationController extends Controller
     public function destroy(Application $application){
         $application->delete();
         return back()->with('success', 'application deleted successfully Deleted successfully!');
+
+    }
+
+    
+    public function cancel(Application $application){
+        $application->status='cancelled';
+        $application->save();
+
+        return back()->with('success', 'application Cancelled successfully !');
 
     }
 }

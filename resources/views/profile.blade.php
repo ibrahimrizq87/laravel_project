@@ -121,16 +121,35 @@ $counter ++;
                     <div class="card-body">
                             @if($application->jobPost)
                         <h5 class="card-title fw-bolder"> <strong>Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
+                        <p><strong>Empolyer Name:</strong> {{ $application->jobPost->user->name }}</p>
                         <p><strong>Description:</strong> {{ $application->additional_information }}</p>
                         <p><strong>Submitted On:</strong> {{ $application->created_at->format('F j, Y') }}</p>
+                        <p><strong>Status:</strong> {{ $application->status }}</p>
+                       
+                        
+
+        
+
                         @else
                         <p>Job information not available</p>
                         @endif
                         <div class="text-center">
+                        @if($application->status =='cancelled')
+                        <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        @elseif ($application->status =='approved')
+                        <div class="alert alert-success text-center" role="alert">
+  Congratulations! You have been accepted for this job. Please wait for the employer to contact you soon.
+</div>                        @else
+                      
                             <a href="{{ route('applications.show' , $application->id) }}" class="btn text-white" style="background-color:#102C57">View </a>
                             <a href="{{ route('applications.edit' , $application->id) }}" class="btn text-black" style="background-color:#DAC0A3">Edit </a>
-                            <button class="btn text-white" style="background-color:maroon">Cancel </button>
+                            <a href="{{ route('applications.cancel' , $application->id) }}" class="btn text-white" style="background-color:maroon">Cancel </a>
 
+                            @endif
                         </div>
                     </div>
                     <hr>

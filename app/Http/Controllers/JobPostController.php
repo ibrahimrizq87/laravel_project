@@ -15,6 +15,10 @@ use App\Models\JobPost;
 class JobPostController extends Controller
 { // app/Http/Controllers/EmployerController.php
 
+
+    function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
 

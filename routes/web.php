@@ -38,6 +38,8 @@ Route::resource('applications', ApplicationController::class);
 
 
 Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::get('applications/{application}/cancel', [ApplicationController::class, 'cancel'])->name('applications.cancel');
+
 
 Route::get('applications/{application}/me', [ApplicationController::class, 'getMyApplications'])->name('applications.myPosts');
 
