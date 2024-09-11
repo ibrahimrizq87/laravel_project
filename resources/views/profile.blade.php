@@ -8,24 +8,25 @@ use Carbon\Carbon;
 @section('content')
 
 <div class="container">
-    <div class="fs-2 fw-bolder text-danger text-end py-3">
+    <div class="fs-3 fw-bolder text-danger text-end py-2">
         Welcome {{ strtoupper($user->name) }}!
     </div>
 </div>
 
 @if(Auth::user()->role == 'admin')
-<div class="container m-auto w-50 h-75">
+<div class="container m-auto w-50 h-75 mb-5" >
     <div class="col-12">
-        <div class="card bg-white text-center d-flex justify-content-center align-items-center">
-            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-3" style="height:120px; width:120px" alt="">
+        <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg" style="background-color:#ffffff;">
+            <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-2" style="height:120px; width:120px" alt="">
             <div class="card-body text-center">
-                <h5 class="card-title py-3">Name : {{ ucwords($user->name) }}</h5>
-                <h5 class="card-title py-3">E-mail : {{$user->email}}</h5>
-                <h5 class="card-title py-3">User Type :{{ucwords($user->role)}}</h5>
-                <h5 class="card-title py-3 ">Gender : {{$user->gender}}</h5>
-                <h5 class="card-title py-3">Birthdate :{{$user->birthdate}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Name :</strong> {{ ucwords($user->name) }}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">E-mail :</strong> {{$user->email}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
+                <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
                 <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
-                <button class="btn bg-success text-white">Add New Admin</button>
+                <button class="py-2 px-3  border-0 rounded-3 my-3 text-black fw-bolder" style="background-color:#efd788;">Add New Admin</button>
+
             </div>
         </div>
     </div>
@@ -33,17 +34,18 @@ use Carbon\Carbon;
 <!-- Profile -->
 
 @elseif(Auth::user()->role == 'employer')
-<div class="container m-auto w-50 h-75">
+<div class="container m-auto w-50 h-75 mb-5" >
     <div class="col-12">
-        <div class="card bg-white text-center d-flex justify-content-center align-items-center">
+        <div class="card bg-white text-center d-flex justify-content-center align-items-center shadow-lg" style="background-color:#ffffff;">
             <img src="{{ asset('uploads/' . Auth::user()->image) }}" class="rounded-circle py-2 my-2" style="height:120px; width:120px" alt="">
             <div class="card-body text-center">
-                <h5 class="card-title py-2">Name : {{ ucwords($user->name) }}</h5>
-                <h5 class="card-title py-2">E-mail : {{$user->email}}</h5>
-                <h5 class="card-title py-2">User Type :{{ucwords($user->role)}}</h5>
-                <h5 class="card-title py-2 ">Gender : {{$user->gender}}</h5>
-                <h5 class="card-title py-2">Birthdate :{{$user->birthdate}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Name :</strong> {{ ucwords($user->name) }}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">E-mail :</strong> {{$user->email}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
+                <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
+                <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
                 <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
+
             </div>
         </div>
     </div>
@@ -120,9 +122,9 @@ $counter ++;
                     @foreach ($applications as $application)
                     <div class="card-body">
                             @if($application->jobPost)
-                        <h5 class="card-title fw-bolder"> <strong>Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
-                        <p><strong>Description:</strong> {{ $application->additional_information }}</p>
-                        <p><strong>Submitted On:</strong> {{ $application->created_at->format('F j, Y') }}</p>
+                        <h5 class="card-title fw-bolder"> <strong class="fw-bolder">Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
+                        <p><strong class="fw-bolder">Description:</strong> {{ $application->additional_information }}</p>
+                        <p><strong class="fw-bolder">Submitted On:</strong> {{ $application->created_at->format('F j, Y') }}</p>
                         @else
                         <p>Job information not available</p>
                         @endif

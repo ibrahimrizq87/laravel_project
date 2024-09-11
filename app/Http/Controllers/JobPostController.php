@@ -22,7 +22,7 @@ class JobPostController extends Controller
 
     $user = Auth::User();
 
-    $jobPosts = JobPost::where('status', '!=', 'approved')->paginate(5);
+    $jobPosts = JobPost::where('status', '!=', 'approved')->paginate(6);
     // $jobPosts = JobPost::all();
     return view('job_post.approve_post' , ['jobPosts'=> $jobPosts ,'user'=>$user]);
   
