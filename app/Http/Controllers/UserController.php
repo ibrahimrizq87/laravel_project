@@ -7,11 +7,17 @@ use App\Models\Resume;
 use App\Models\Candidate;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\storeUserRequest;
 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,20 +26,37 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(storeUserRequest $request)
     {
-        //
+        if (Auth::user()->cannot('create',User::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
+        $validatedData = $request->validated();
+$user = new User();
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->gender = $validatedData['gender'];
+        $user->birthdate = $validatedData['birthdate'];
+        $user->password = Hash::make($validatedData['password']);
+        
+            $imagePath = '';
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('users', 'uploaded_files');
+        }
+        $user->image =$imagePath ;
+
+
+
+
+        $user->save();
+
+        return redirect()->route('home')->with('success', 'Admin User added Successfully.');
+
     }
 
     /**
@@ -41,7 +64,12 @@ class UserController extends Controller
      */
 
     public function show(User $user)
+    
 {
+    if (Auth::user()->cannot('view',$user)) {
+        return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+    } 
+
     $applications = $user->applications()->with('jobPost')->paginate(5);
 
     return view('profile', compact('user', 'applications'));
@@ -53,34 +81,51 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if (Auth::user()->cannot('update',$user)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
+
         return view('edit_user', ['user'=>$user]);
 
     }
 
+
+    public function addAdmin()
+    {
+        if (Auth::user()->cannot('create',User::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
+        return view('add_admin');
+
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-
+        if (Auth::user()->cannot('update',$user)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
         try {
         $validatedData = $request->validated();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
-        $user->gender = $validatedData['gender'];
+
         $user->birthdate = $validatedData['birthdate'];
+
         $imagePath = $user->image;
-        $user->role = $validatedData['role'] ?? 'admin' ;
 
 
         if ($request->filled('password')) {
-            //$user->password = Hash::make($validatedData['password']);
+            $user->password = Hash::make($validatedData['password']);
         }
 
         if ($request->hasFile('image')) {
+            // dd($user->image);
             $imagePath = $request->file('image')->store('users', 'uploaded_files');
 
         }
+        $user->image =$imagePath ;
 
         if ($request->hasFile('cv')) {
             $cvPath = $request->file('cv')->store('CVs', 'uploaded_files');

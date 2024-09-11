@@ -23,9 +23,15 @@ Route::get('/resume/download/{resume}', [PDFResumeController::class, 'downloadRe
 Route::get('/resume/delete/{resume}', [PDFResumeController::class, 'deleteResume'])->name('resume.delete');
 
 
+// Route::post('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 
-// Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 
+
+
+
+Route::get('/users/createAdmin', [UserController::class, 'addAdmin'])->name('users.addAdmin');
 
 Route::get('/applications/{job_id}/create', [ApplicationController::class, 'createApplication'])->name('application.add');
 // Routes for Applications
@@ -33,7 +39,10 @@ Route::resource('applications', ApplicationController::class);
 
 
 Route::get('applications/{application}/view', [ApplicationController::class, 'view'])->name('applications.view');
+Route::get('applications/{application}/cancel', [ApplicationController::class, 'cancel'])->name('applications.cancel');
 
+
+Route::get('applications/{application}/me', [ApplicationController::class, 'getMyApplications'])->name('applications.myPosts');
 
 Route::resource('users', UserController::class);
 Route::resource('job_posts', JobPostController::class);
@@ -50,6 +59,8 @@ Route::patch('/job_posts/{id}/cancel', [AdminController::class, 'cancel'])->name
 
 
 // Route::post('/comments/{commentableType}/{commentableId}', [CommentController::class, 'store'])->name('comments.store');
+
+
 
 
 // / ...............................................................................................................................................

@@ -24,6 +24,21 @@
 
 <body>
     <div class="container w-50 m-auto shadow-lg my-5 rounded-3" style="background-color:#ffffff;">
+
+
+    @if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+
+        <h2>Job Post Form</h2>
         <form action="{{ route('job_posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 

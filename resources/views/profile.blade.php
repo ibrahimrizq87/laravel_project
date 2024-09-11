@@ -1,3 +1,8 @@
+<?php
+
+use Carbon\Carbon;
+
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -19,8 +24,9 @@
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
                 <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
-                <button class="py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57;"> Edit your profile </button>
-                <button class="py-2 px-3  border-0 rounded-3 my-3 text-black fw-bolder" style="background-color:#efd788;">Add New Admin</button>
+                <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
+                <a href="{{ route('users.addAdmin') }}" class="py-2 px-3  border-0 rounded-3 my-3 text-black fw-bolder" style="background-color:#efd788;">Add New Admin</a>
+
             </div>
         </div>
     </div>
@@ -38,7 +44,8 @@
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
                 <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
-                <button class="py-2 px-3 text-white border-0 rounded-3 my-2" style="background-color:#102C57; color: #ffffff;"> Edit your profile </button>
+                <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
+
             </div>
         </div>
     </div>
@@ -62,6 +69,25 @@
                     @foreach($user->resumes as $r)
                     <h6 class="card-title py-2 d-inline"><strong class="fw-bolder pe-2">Resume:</strong><a href="{{ asset('uploads/CVs/' . $r->resume) }}" target="_blank"> {{$r->resume}}</a> </h6>
 
+                    <?php
+
+$counter = 1;
+
+      ?>
+         
+    
+
+  
+                    @foreach($user->resumes as $r)
+                    <div class='border rounded shadow p-2 m-2'>
+                    <div> Resume no. {{$counter}}<a href="{{ asset('uploads/' . $r->resume) }}" class="btn btn-outline-primary ms-5" target="_blank"> View</a> </div>
+                    <p class="text-muted"><small>{{$r->created_at->diffForHumans(['parts' => 1])}}</small></p>
+                    </div>
+                    <?php
+
+$counter ++;
+
+      ?>
                     @endforeach
 
                     @if ($user->candidate->employed == 'employed')
@@ -73,8 +99,8 @@
                     @endif
 
                     <div class="text-center">
-                     <button class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </>
-                    </div>
+                    <a href="{{ route('users.edit',$user->id) }}" class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile  </a>                    </div>
+
 
                 </div>
 
@@ -95,17 +121,34 @@
                     @foreach ($applications as $application)
                     <div class="card-body">
                             @if($application->jobPost)
-                        <h5 class="card-title fw-bolder"> <strong class="fw-bolder">Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
+
+<h5 class="card-title fw-bolder"> <strong class="fw-bolder">Job Title : </strong> {{ $application->jobPost->job_title }}</h5>
+                        <p><strong>Empolyer Name:</strong> {{ $application->jobPost->user->name }}</p>
                         <p><strong class="fw-bolder">Description:</strong> {{ $application->additional_information }}</p>
                         <p><strong class="fw-bolder">Submitted On:</strong> {{ $application->created_at->format('F j, Y') }}</p>
+                        <p><strong>Status:</strong> {{ $application->status }}</p>
+                       
+   
                         @else
                         <p>Job information not available</p>
                         @endif
                         <div class="text-center">
+                        @if($application->status =='cancelled')
+                        <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        @elseif ($application->status =='approved')
+                        <div class="alert alert-success text-center" role="alert">
+  Congratulations! You have been accepted for this job. Please wait for the employer to contact you soon.
+</div>                        @else
+                      
                             <a href="{{ route('applications.show' , $application->id) }}" class="btn text-white" style="background-color:#102C57">View </a>
                             <a href="{{ route('applications.edit' , $application->id) }}" class="btn text-black" style="background-color:#DAC0A3">Edit </a>
-                            <button class="btn text-white" style="background-color:maroon">Cancel </button>
+                            <a href="{{ route('applications.cancel' , $application->id) }}" class="btn text-white" style="background-color:maroon">Cancel </a>
 
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -123,10 +166,10 @@
                 </tr>
 
 
-                <!-- Pagination Controls -->
-                <div class="pagination">
-                    {{ $applications->links() }}
-                </div>
+              
+                <div class="pagination justify-content-center mt-4">
+    {{ $applications->links('pagination::bootstrap-4') }}
+</div>
                 @endif
             </div>
         </div>
@@ -134,6 +177,7 @@
 
 
 </div>
+
 @endIf
 @endsection
 

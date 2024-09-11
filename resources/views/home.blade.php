@@ -7,8 +7,21 @@ use Carbon\Carbon;
 
 @extends('layouts.app')
 
-@section('content')
 
+@section('content')
+<div class ="container">
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+</div>  
 
 <div class="container my-5">
     <div class="row g-3">
@@ -54,15 +67,47 @@ use Carbon\Carbon;
                     </p>
 
 
-                    <div class="text-center">
-                        <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn" style="background-color:#102C57; color:#ffffff">View Details</a>
-                    </div>
+                
+                                  <p class="card-subtitle mb-2 text-muted">
+     
+                    <strong>Number of Applications: </strong> <span class="job-type m-2">{{$jobPost->applications->count()}}</span>
 
                     @if($user->role== "candidate")
                     <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link" style="padding-top: 10px;" >Apply Now</a>
+                </p>
+
+                <p class="card-subtitle mb-2 text-muted">
+                    @if($user->role== "employer")
+                        <strong>Status</strong><span class="job-type m-2">{{$jobPost->status}}</span>
                     @endif
+                    <br>
+                                        <strong>User Name</strong><span class="job-type m-2">{{$jobPost->user->name}}</span>                    
+                </p>
 
 
+                <div class="text-center">
+                        <a href="{{ route('job_posts.show',$jobPost->id) }}" class="card-link btn" style="background-color:#102C57; color:#ffffff">View Details</a>
+                  
+                   
+                        @if($user->role== "candidate")
+                    <a href="{{ route('application.add' , $jobPost->id) }}" class="card-link">Apply Now</a>
+                @endif
+                    </div>
+                
+              
+                @if($user->role== "employer")
+                <form action="{{ route('job_posts.destroy' , $jobPost->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+
+                            <a href="{{ route('job_posts.edit' , $jobPost->id) }}" class="btn btn-outline-success">Edit</a>
+
+
+                @endif
+                
+               
 
                 </div>
             </div>

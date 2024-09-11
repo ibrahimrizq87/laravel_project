@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
 <div class="container w-50 m-auto shadow-lg my-5" style="background-color:#ffffff;">
+
     <h2 >Create New Application</h2>
     <form action="{{ route('applications.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

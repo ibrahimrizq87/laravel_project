@@ -15,9 +15,17 @@ use App\Models\JobPost;
 class JobPostController extends Controller
 { // app/Http/Controllers/EmployerController.php
 
+
+    function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
 
+       
+        if (Auth::user()->cannot('approveOrReject',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
 
 
     $user = Auth::User();
@@ -41,38 +49,54 @@ public function show(JobPost $jobPost)
 
     public function create()
     {
+        if (Auth::user()->cannot('create',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
         return view('job_post.add_job_post');
     }
 
     public function store(JobPostValidate $request)
     {
+        if (Auth::user()->cannot('create',JobPost::class)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the privilage to do this operation.');
+        } 
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
         $my_path = '';
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $my_path = $image->store('uploads/posts', 'public');
+            $my_path = $image->store('posts', 'uploaded_files');
         }
 
         $validatedData['image'] = $my_path;
         JobPost::create($validatedData);
 
-        return redirect()->route('job_posts.index')->with('success', 'Job post created successfully.');
+        return redirect()->route('home')->with('success', 'Job post created successfully.');
     }
 
     public function edit($id)
     {
         $job_post = JobPost::findOrFail($id);
+
+        if (Auth::user()->cannot('update', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         return view('job_post.update_job_post', compact('job_post'));
     }
 
     public function update(UpdateJobPostValidate $request, $id)
     {
+        $jobPost = JobPost::findOrFail($id);
+
+        if (Auth::user()->cannot('update', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
 
-        $jobPost = JobPost::findOrFail($id);
 
         if ($request->hasFile('image')) {
             if ($jobPost->image) {
@@ -86,14 +110,18 @@ public function show(JobPost $jobPost)
 
         $jobPost->update($validatedData);
 
-        return redirect()->route('job_posts.index')->with('success', 'Job post updated successfully.');
+        return redirect()->route('home')->with('success', 'Job post updated successfully.');
     }
 
 
 
     public function destroy(JobPost $jobPost){
+        if (Auth::user()->cannot('delete', $job_post)) {
+            return redirect()->route('home')->with('error', 'sorry but you do not have the right to do this operation.');
+
+        } 
         $jobPost->delete();
-        return back()->with('success', 'job post deleted successfully Deleted successfully!');
+        return redirect()->route('home')->with('success', 'job post deleted successfully Deleted successfully!');
 
     }
 }

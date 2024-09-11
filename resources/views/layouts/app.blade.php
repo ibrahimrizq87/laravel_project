@@ -17,12 +17,63 @@
 
 <body>
 
-    <div id="app">
-        <header class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #ffffff;">
-            <div class="container-fluid">
-                <a class="navbar-brand ms-5 text-body fw-bolder" href="/">
-                    <img src="{{ asset('images/logo.png') }}" width="50">
-                    <img src="{{ asset('images/word.jpg') }}" width="120" height="30">
+<div id="app">
+    <header class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #ffffff;">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-5 text-body fw-bolder" href="/">
+                <img src="{{ asset('images/logo.png') }}" width="50">
+                <img src="{{ asset('images/word.jpg') }}" width="120" height="30">
+            </a>
+            
+            @auth
+            <ul class="nav nav-tabs col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ms-5">
+                <li><a href="{{route('home')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'home' ? 'active link-secondary' : 'link-dark' }}">Home</a></li>
+                @if ( Auth::user()->role == 'employer')
+                <li><a href="{{route('job_posts.create')}}" class="nav-link px-2 {{ Route::currentRouteName() == 'job_posts.create' ? 'active link-secondary' : 'link-dark' }}">Add Job Post</a></li>
+                <li><a href="{{route('applications.myPosts',Auth::user()->id)}}" class="nav-link px-2 link-dark">View Applications</a></li>
+                @endif
+                @if ( Auth::user()->role == 'admin')
+                <li><a href="{{route('applications.index')}}" class="nav-link px-2 link-dark">View Applications</a></li>
+                <li><a href="{{ route('job_posts.index') }}" class="nav-link px-2 link-dark">Not Approved Posts</a></li>
+                @endif
+            </ul>
+            @endauth
+
+            @guest
+            <div class="collapse navbar-collapse justify-content-end ms-5" id="navbarNav">
+                <ul class="navbar-nav me-5">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <button class="btn" style="background-color:#102C57; color:#ffffff">Login</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">
+                            <button class="btn" style="background-color: #eaeaea">Register</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            @else
+            <span class="me-3">
+                @if(Auth::user()->role == 'admin')
+                    <strong class="badge bg-danger fw-bold fs-6">{{ Auth::user()->role }}</strong>
+                @elseif(Auth::user()->role == 'employer')
+                    <strong class="badge bg-success fw-bold fs-6">{{ Auth::user()->role }}</strong>
+                @elseif(Auth::user()->role == 'candidate')
+                    <strong class="badge bg-primary fw-bold fs-6">{{ Auth::user()->role }}</strong>
+                @endif
+            </span>
+
+            <div class="dropdown text-end me-5 border rounded p-2">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (Auth::user()->image == null)
+                    <img src="{{ asset('images/user.png') }}" alt="user image" width="32" height="32" class="rounded-circle me-2">
+                    @else
+                    <img src="{{ asset('uploads/' . Auth::user()->image) }}" alt="user image" width="32" height="32" class="rounded-circle me-2">
+                    @endif
+                    <span class="me-3"><strong>{{Auth::user()->name}}</strong></span>
+>>>>>>> f0176c56e97645822ab244bb224b42e06584c438
                 </a>
 
                 @auth
@@ -130,6 +181,7 @@
     </main>
 
     <footer class="text-center text-white w-100 py-3" style="background-color: #030117;">
+
         &copy; ITI Laravel Team
     </footer>
 

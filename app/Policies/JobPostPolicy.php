@@ -48,6 +48,10 @@ class JobPostPolicy
     {
         return $user->id === $jobPost->user_id || $user->role === 'admin';
     }
+    public function approveOrReject(User $user): bool
+    {
+        return  $user->role === 'admin';
+    }
 
     /**
      * Determine whether the user can restore the model.
