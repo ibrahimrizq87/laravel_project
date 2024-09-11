@@ -1,3 +1,8 @@
+<?php
+
+use Carbon\Carbon;
+
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -19,8 +24,9 @@
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
                 <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
-                <button class="py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57;"> Edit your profile </button>
+                <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
                 <button class="py-2 px-3  border-0 rounded-3 my-3 text-black fw-bolder" style="background-color:#efd788;">Add New Admin</button>
+
             </div>
         </div>
     </div>
@@ -38,7 +44,8 @@
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">User Type :</strong>{{ucwords($user->role)}}</h5>
                 <h5 class="card-title py-2 "><strong class="fw-bolder pe-3">Gender :</strong> {{$user->gender}}</h5>
                 <h5 class="card-title py-2"><strong class="fw-bolder pe-3">Birthdate :</strong>{{$user->birthdate}}</h5>
-                <button class="py-2 px-3 text-white border-0 rounded-3 my-2" style="background-color:#102C57; color: #ffffff;"> Edit your profile </button>
+                <a href="{{ route('users.edit',$user->id) }}" class="py-2 px-3 bg-success text-white border-0 rounded-3 my-3"> Edit your profile </a>
+
             </div>
         </div>
     </div>
@@ -59,9 +66,30 @@
                     <h5 class="card-title py-2">Birthdate: {{$user->birthdate}}</h5>
                     <h5 class="card-title py-2">Phone: {{$user->candidate->phone}}</h5>
                     <h5 class="card-title py-2">Skills: {{$user->candidate->skills}}</h5>
-                    @foreach($user->resumes as $r)
-                    <h5 class="card-title py-2 d-inline"> Resume:<a href="{{ asset('uploads/CVs/' . $r->resume) }}" target="_blank"> {{$r->resume}}</a> </h5>
+                    <h5 class="card-title py-2 d-inline"> Resume: </h5>
 
+
+
+                    
+                    <?php
+
+$counter = 1;
+
+      ?>
+         
+    
+
+  
+                    @foreach($user->resumes as $r)
+                    <div class='border rounded shadow p-2 m-2'>
+                    <div> Resume no. {{$counter}}<a href="{{ asset('uploads/' . $r->resume) }}" class="btn btn-outline-primary ms-5" target="_blank"> View</a> </div>
+                    <p class="text-muted"><small>{{$r->created_at->diffForHumans(['parts' => 1])}}</small></p>
+                    </div>
+                    <?php
+
+$counter ++;
+
+      ?>
                     @endforeach
 
                     @if ($user->candidate->employed == 'employed')
@@ -73,7 +101,7 @@
                     @endif
 
 
-                    <button class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile </>
+                    <a href="{{ route('users.edit',$user->id) }}" class=" btn py-2 px-3 text-white border-0 rounded-3 my-3" style="background-color:#102C57"> Edit Profile  </a>
 
                 </div>
 
@@ -122,10 +150,10 @@
                 </tr>
 
 
-                <!-- Pagination Controls -->
-                <div class="pagination">
-                    {{ $applications->links() }}
-                </div>
+              
+                <div class="pagination justify-content-center mt-4">
+    {{ $applications->links('pagination::bootstrap-4') }}
+</div>
                 @endif
             </div>
         </div>
@@ -133,6 +161,7 @@
 
 
 </div>
+
 @endIf
 @endsection
 

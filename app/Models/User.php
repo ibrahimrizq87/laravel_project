@@ -16,6 +16,14 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+    public function isEmployer()
+    {
+    return $this->role === 'employer';
+    }
+
+
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +39,7 @@ class User extends Authenticatable
         'gender',
         'birthdate'
     ];
-        
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -58,8 +66,8 @@ class User extends Authenticatable
     public function resumes()
     {
 
-        // can be updated later to allow more than one resume to be listed in the application 
-        
+        // can be updated later to allow more than one resume to be listed in the application
+
         return $this->hasMany(Resume::class);
     }
     public function applications()

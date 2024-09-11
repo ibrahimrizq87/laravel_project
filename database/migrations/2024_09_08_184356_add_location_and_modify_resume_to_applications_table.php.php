@@ -14,7 +14,7 @@ return new class extends Migration
 
             // Modifying the 'resume' column to be nullable
             // $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('applications', function (Blueprint $table) {
             // Dropping the 'location' column
-            $table->dropColumn(['location' ,'resume']);
+            // $table->dropColumn(['location' ,'resume']);
 
         });
     }

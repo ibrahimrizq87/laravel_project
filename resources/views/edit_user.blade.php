@@ -71,20 +71,8 @@ use Carbon\Carbon;
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
         </div>
 
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror">
-                <option value="">Select Gender</option>
-                <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>
-            </select>
-            @error('gender')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <br>
+      
+        
 
         <div class="form-group">
             <label for="birthdate">Birthdate</label>
@@ -115,22 +103,11 @@ use Carbon\Carbon;
                 </span>
             @enderror
         </div>
-        @if (Auth::check() && Auth::user()->role != 'admin')
-        <label for="role" class="form-label">User Type</label>
-        <div class="input-group mb-3">
-            <select id="role" name='role' class="form-select @error('role') is-invalid @enderror">
-                <option value="" disabled>Choose...</option>
-                <option value="employer" {{ old('role', $user->role) === 'employer' ? 'selected' : '' }}>Employer</option>
-                <option value="candidate" {{ old('role', $user->role) === 'candidate' ? 'selected' : '' }}>Candidate</option>
-            </select>
-            <label class="input-group-text" for="role">Options</label>
-            @error('role')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror  
-        </div>
-        @endif
+
+
+        @if (Auth::check() && Auth::user()->role == 'candidate')
+  
+
 
         <div id="candidate-fields" style="display: {{ old('role', $user->role) === 'candidate' ? 'block' : 'none' }};">
             <div class="mb-3">
@@ -231,28 +208,13 @@ $counter ++;
             </div>
         </div>
 
-        <div id="employer-fields" style="display: {{ old('role', $user->role) === 'employer' ? 'block' : 'none' }};">
-            <div class="mb-3">
-                <label for="company-name" class="form-label">Company Name</label>
-                <input type="text" id="company-name" name="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Enter company name" value="{{ old('company_name', optional($user->employer)->company_name) }}">
-                @error('company_name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror  
-            </div>
+ 
 
-            <div class="mb-3">
-                <label for="company-description" class="form-label">Company Description</label>
-                <textarea id="company-description" name="company_description" class="form-control @error('company_description') is-invalid @enderror" placeholder="Describe your company">{{ old('company_description', optional($user->employer)->company_description) }}</textarea>
-                @error('company_description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror  
-            </div>
-        </div>
 
+
+        @endif
+
+     
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
@@ -264,22 +226,7 @@ $counter ++;
     $(document).ready(function () {
  
 
-        function toggleCandidateFields() {
-            if ($('#role').val() === 'candidate') {
-                $('#candidate-fields').slideDown();
-            } else {
-                $('#candidate-fields').slideUp();
-                $('#company-field').slideUp();
-                $('#job-description-field').slideUp(); 
-            }
-            if ($('#employed').val() === 'employed') {
-                $('#company-field').slideDown();
-                $('#job-description-field').slideDown();
-            } else {
-                $('#company-field').slideUp();
-                $('#job-description-field').slideUp();
-            }
-        }
+      
 
         function toggleCompanyFields() {
             if ($('#employed').val() === 'employed') {
@@ -291,10 +238,8 @@ $counter ++;
             }
         }
 
-        toggleCandidateFields();
         toggleCompanyFields();
 
-        $('#role').on('change', toggleCandidateFields);
         $('#employed').on('change', toggleCompanyFields);
     });
 </script>

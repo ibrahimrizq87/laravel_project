@@ -10,9 +10,25 @@ use App\Http\Requests\StoreApplicationRequest;
 use App\Models\Application;
 use App\Models\Resume;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 class ApplicationController extends Controller
 {
+
+    public function index()
+    {
+        $applications = Application::where('status', '!=', 'cancelled')->paginate(6);
+        return view('application.index', compact('applications'));
+        
+    }
+    
+    public function getMyApplications(User $user)
+    {
+        $applications = Application::where('status', '!=', 'cancelled' )->where('user_id', $user->id)->paginate(6);
+        return view('application.index', compact('applications'));
+        
+    }
     public function createApplication($job_id)
     {
         $user = Auth::user();
@@ -25,6 +41,7 @@ class ApplicationController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::user()->id;
+        $validatedData['status'] = 'pending'; // Default status
 
         if ($request->hasFile('resume')) {
             $resumePath = $request->file('resume')->store('CVs', 'uploaded_files');
@@ -53,7 +70,8 @@ class ApplicationController extends Controller
     {
         $validatedData = $request->validated();
 
-   
+        $validatedData['user_id'] = Auth::user()->id;
+
 
         if ($request->hasFile('resume')) {
             $resumePath = $request->file('resume')->store('CVs', 'uploaded_files');
@@ -68,7 +86,7 @@ class ApplicationController extends Controller
         }
 
         $application->update($validatedData);
-        return redirect()->route('home')->with('success', 'Application updated successfully.');
+        return redirect()->route('applications.index')->with('success', 'Application updated successfully.');
     }
 
     public function show(Application $application)
@@ -77,5 +95,25 @@ class ApplicationController extends Controller
         $resume = Resume::findOrFail($application->resume_id);
  
         return view('application.view_application',['application'=> $application , 'resume'=> $resume] );
+    }
+
+    public function updateStatus(Request $request, Application $application)
+    {
+
+
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,approved,cancelled',
+        ]);
+        $application->status=$validatedData['status'];
+        $application->save();
+        $application->update($validatedData);
+
+        return redirect()->route('applications.index')->with('success', 'Application status updated successfully.');
+    }
+
+    public function destroy(Application $application){
+        $application->delete();
+        return back()->with('success', 'application deleted successfully Deleted successfully!');
+
     }
 }
