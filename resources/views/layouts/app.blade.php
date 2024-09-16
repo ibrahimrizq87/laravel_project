@@ -88,8 +88,7 @@
                     <input type="search" name="key" class="form-control" placeholder="Search..." aria-label="Search" value="{{ request()->input('key') }}">
                     <div class="input-group w-25">
                         <select name="criteria" class="form-select" id="inputGroupSelect02" style="width:200px">
-                            <option value="filterby" disabled selected>FilterBy</option>
-                            <option value="job_title">Job Title</option>
+                            <option value="job_title" selected>Job Title</option>
                             <option value="description">Description</option>
                             <option value="required_skills">Skills</option>
                             <option value="location">Location</option>

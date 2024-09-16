@@ -3,7 +3,19 @@
 
 @section('content')
 <div class="container w-50 m-auto shadow-lg my-5" style="background-color:#ffffff;">
-    <h2>Update your application</h2>
+    
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+{{ session('success') }}
+</div>
+@endif
+
+
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+{{ session('error') }}</div>
+@endif
+<h2>Update your application</h2>
     <form action="{{ route('applications.update',$application->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
